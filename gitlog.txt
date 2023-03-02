@@ -1,5 +1,11 @@
-I, Dawson Matthews, certify that I participated equitably in the creation of assignment C13A-2 Clue Paths 1 (Clue Pair) , dated 02/25/23.
-I, Connor Bendle, certify that I participated equitably in the creation of this assignment C13A-2 Clue Paths 1 (Clue Pair) , dated 02/25/23.
+I, Dawson Matthews, certify that I participated equitably in the creation of assignment C14A-1 Clue Paths 2 (Clue Pair) dated 03/02/2023.
+I, Connor Bendle, certify that I participated equitably in the creation of this assignment C14A-1 Clue Paths 2 (Clue Pair), dated 03/02/2023.
+
+commit f6778e9018725945fe1800c231f3cc50fb0e1e47
+Author: Dawson Matthews <dawsonmatthews@mines.edu>
+Date:   Tue Feb 28 13:47:03 2023 -0700
+
+    Implemented adjacency tests as well as find all targets tests
 
 commit 1cd67eb63b6e6eba6f5ea282a9cb1a133cd3bbf9
 Author: Dawson Matthews <=>

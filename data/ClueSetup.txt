@@ -1,0 +1,13 @@
+// Rooms and room cards
+Room, Statistics, S
+Room, SoftwareEngineering, E
+Room, Discrete, D
+Room, LinearAlgebra, L
+Room, Probability, P
+Room, GameDevelopment, G
+Room, DatabaseMana, M
+Room, Chemistry, C
+Room, Physics, H
+// other spaces on board
+Space, Unused, X
+Space Walkway, W
