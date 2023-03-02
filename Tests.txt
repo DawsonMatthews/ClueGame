@@ -1,0 +1,8 @@
+Chose (8, 8), Statistics, to test generic room.
+Chose (2, 12), Chemistry, to test label of a room that hasn't been tested yet.
+Chose (3, 18), Probability, to test center of untested room.
+Chose (20, 22), Software Engineering, to test secret passage.
+Chose (14, 6), Walkway, to test and walkway.
+Chose (23, 11), Unused, to test an Unused cell.
+Chose (0, 0), Physics, to test the first cell.
+Chose (23, 23), Walkway, to test the last cell.

@@ -12,10 +12,6 @@ import org.junit.Assert;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import clueGame.Board;
-import clueGame.BoardCell;
-import clueGame.DoorDirection;
-import clueGame.Room;
 
 public class FileInitTests306 {
 	// Constants that I will use to test whether the file was loaded correctly
@@ -97,7 +93,7 @@ public class FileInitTests306 {
 		// just test a standard room location
 		BoardCell cell = board.getCell( 23, 23);
 		Room room = board.getRoom( cell ) ;
-		assertTrue( room != null );
+		assertTrue(room != null);
 		assertEquals( room.getName(), "Kitchen" ) ;
 		assertFalse( cell.isLabel() );
 		assertFalse( cell.isRoomCenter() ) ;

@@ -1,12 +1,16 @@
 package tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.util.HashSet;
 import java.util.Set;
 
 public class Board {
 
-	private final static int COLUMNS = 4;
-	private final static int ROWS = 4;
+	private final static int COLUMNS = 24;
+	private final static int ROWS = 24;
 	private String layoutConfigFile = "ClueLayout.csv";
 	private String setupConfigFile = "ClueSetup.txt";
 	//Map<Character, Room>roomMap;
@@ -101,12 +105,11 @@ public class Board {
 
 	public void setConfigFiles(String string, String string2) {
 		
-		
 	}
 
 	public Room getRoom(char c) {
 		// TODO Auto-generated method stub
-		return null;
+		return new Room();
 	}
 
 	public int getNumRows() {
@@ -121,7 +124,7 @@ public class Board {
 
 	public Room getRoom(BoardCell cell) {
 		// TODO Auto-generated method stub
-		return null;
+		return new Room();
 	}
 	
 	

@@ -1,7 +1,7 @@
 package tests;
 
 /*
- * This program tests that, when loading config files, exceptions 
+ * This program tests that, when loading config files, exceptions
  * are thrown appropriately.
  */
 
@@ -9,8 +9,7 @@ import java.io.FileNotFoundException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
-import clueGame.BadConfigFormatException;
-import clueGame.Board;
+
 
 public class ExceptionTests306 {
 
