@@ -1,6 +1,36 @@
-I, Dawson Matthews, certify that I participated equitably in the creation of assignment C15A-1 Clue Paths 2 (Clue Pair) dated 03/06/2023.
-I, Connor Bendle, certify that I participated equitably in the creation of this assignment C15A-1 Clue Paths 2 (Clue Pair), dated 03/06/2023.
+I, Dawson Matthews, certify that I participated equitably in the creation of assignment C15A-2 Clue Paths 2 (Clue Pair) dated 03/06/2023.
+I, Connor Bendle, certify that I participated equitably in the creation of this assignment C15A-2 Clue Paths 2 (Clue Pair), dated 03/06/2023.
 
+commit 3735b6e7a3d20e70c109e4997da6ca52b2222f3f
+Merge: 6898378 737c10f
+Author: Dawson Matthews <=>
+Date:   Mon Mar 6 21:45:29 2023 -0700
+
+    Merge branch 'EditExcelFile'
+
+commit 6898378a3c95b2308380b13e4ae00122e19f21d3
+Author: bendlecr <crbendle@mines.edu>
+Date:   Mon Mar 6 21:44:36 2023 -0700
+
+    added board adjacency target tests
+
+commit 737c10ffc755223a2baf1e49402ebe774c69235c
+Author: Dawson Matthews <=>
+Date:   Mon Mar 6 21:34:40 2023 -0700
+
+    Added color key for tests on file
+
+commit 51553d93fe6c8d548add64611e7c75b58abda346
+Author: Dawson Matthews <=>
+Date:   Mon Mar 6 20:56:38 2023 -0700
+
+    Started work on new tests
+
+commit 7f912688bf463c619321f1b1d12590117eed3125
+Author: Dawson Matthews <=>
+Date:   Mon Mar 6 19:07:06 2023 -0700
+
+    refactored code
 
 commit 84e0cfc7824c95ed9625a5eaa91b40e831894815
 Author: Dawson Matthews <=>

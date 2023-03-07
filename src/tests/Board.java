@@ -102,22 +102,76 @@ public class Board {
 			return;
 		}
 		
+		SetAdjacencyList();
+	}
+	
+	private void SetAdjacencyList() {
 		for (int i = 0; i < ROWS; i++) {
+			//System.out.println();
 			for (int j = 0; j < COLUMNS; j++) {
-				for (int k = -1; k < 1; k+= 2) {
-					if (i+k < ROWS && i+k >= 0) {
-						griddy[i][j].addAdjacency(griddy[i+k][j]);
+				BoardCell cell = griddy[i][j];
+				
+				//System.out.print(cell.getInitial() + " (" + roomMap.get(cell.getInitial()).getName() + ") ");
+				
+				if (roomMap.get(cell.getInitial()).getName().equals("Walkway")) {
+					BoardCell adjacentCell;
+					if (cell.isDoorway() == true) {
+						Room adjacentRoom;
+						if (cell.getDoorDirection() == DoorDirection.LEFT) {
+							adjacentRoom = roomMap.get(griddy[i-1][j].getInitial());
+						}
+						else if (cell.getDoorDirection() == DoorDirection.RIGHT) {
+							adjacentRoom = roomMap.get(griddy[i+1][j].getInitial());
+						}
+						
+						else if (cell.getDoorDirection() == DoorDirection.UP) {
+							adjacentRoom = roomMap.get(griddy[i][j+1].getInitial());
+						}
+						
+						else {
+							adjacentRoom = roomMap.get(griddy[i-1][j].getInitial());
+						}
+						
+						BoardCell roomCenterCell = adjacentRoom.getCenterCell();
+						cell.addAdjacency(roomCenterCell);
+						roomCenterCell.addAdjacency(cell);
 					}
-				}
-				for (int k = -1; k < 1; k+=2) {
-					if (j+k < COLUMNS && j+k >= 0) {
-						griddy[i][j].addAdjacency(griddy[i][j+k]);
+					if ((i+1) < ROWS) {
+						adjacentCell = griddy[i+1][j];
+						
+						if (roomMap.get(adjacentCell.getInitial()).getName() == "Walkway" ) {
+							cell.addAdjacency(adjacentCell);
+						}
+					}
+					
+					if ((i-1) >= 0) {
+						adjacentCell = griddy[i-1][j];
+						
+						if (roomMap.get(adjacentCell.getInitial()).getName() == "Walkway" ) {
+							cell.addAdjacency(adjacentCell);
+						}
+					}
+					
+					if ((j+1) < COLUMNS) {
+						adjacentCell = griddy[i][j+1];
+						
+						if (roomMap.get(adjacentCell.getInitial()).getName() == "Walkway" ) {
+							cell.addAdjacency(adjacentCell);
+						}
+					}
+					
+					if ((j-1) >= 0) {
+						adjacentCell = griddy[i][j-1];
+						
+						if (roomMap.get(adjacentCell.getInitial()).getName() == "Walkway" ) {
+							cell.addAdjacency(adjacentCell);
+						}
 					}
 				}
 			}
 		}
 	}
-	
+
 	/*
 	 * Creates the map of rooms
 	 */
@@ -141,6 +195,14 @@ public class Board {
 			}
 			
 			Room newRoom = new Room(infoArray[1]);
+			
+			String roomType = infoArray[0];
+			if (roomType == "Room") {
+				newRoom.setRoom(true);
+			}
+			else {
+				newRoom.setRoom(false);
+			}
 			char roomChar = infoArray[2].charAt(0);
 			roomMap.put(roomChar, newRoom);
 			
@@ -183,15 +245,18 @@ public class Board {
 			for (int j = 0; j < COLUMNS; j++) {
 				
 				BoardCell newCell = new BoardCell(i, j);
-				if (roomMap.containsKey(rowList.get(i)[j].charAt(0))){
-					// TODO: decide when is room
-					newCell.setRoom(true);
+				
+				char roomChar = rowList.get(i)[j].charAt(0);
+				if (roomMap.containsKey(roomChar)){
+					// Sets the new cells room status to the room status of the character. 
+					newCell.setRoom(roomMap.get(roomChar).getRoom());
 				}
 				else {
 					throw new BadConfigFormatException();
 				}
 				
 				newCell.setInitial(rowList.get(i)[j].charAt(0));
+				
 				
 				
 				newCell.setDoorDirection(DoorDirection.NONE);

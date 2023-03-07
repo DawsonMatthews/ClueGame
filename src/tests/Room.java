@@ -4,6 +4,7 @@ public class Room {
 	private String name;
 	private BoardCell centerCell;
 	private BoardCell labelCell;
+	private boolean isRoom;
 	
 	public Room(String name) {
 		super();
@@ -32,6 +33,14 @@ public class Room {
 	public BoardCell getCenterCell() {
 		// TODO Auto-generated method stub
 		return centerCell;
+	}
+	
+	public void setRoom(boolean isRoom) {
+		this.isRoom = isRoom;
+	}
+	
+	public boolean getRoom() {
+		return isRoom;
 	}
 
 }
