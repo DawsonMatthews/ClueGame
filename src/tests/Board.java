@@ -104,17 +104,15 @@ public class Board {
 		
 		for (int i = 0; i < ROWS; i++) {
 			for (int j = 0; j < COLUMNS; j++) {
-				if (i+1 < ROWS) {
-					griddy[i][j].addAdjacency(griddy[i+1][j]);
+				for (int k = -1; k < 1; k+= 2) {
+					if (i+k < ROWS && i+k >= 0) {
+						griddy[i][j].addAdjacency(griddy[i+k][j]);
+					}
 				}
-				if (i-1 >= 0) {
-					griddy[i][j].addAdjacency(griddy[i-1][j]);
-				}
-				if (j+1 < COLUMNS) {
-					griddy[i][j].addAdjacency(griddy[i][j+1]);
-				}
-				if (j-1 >= 0) {
-					griddy[i][j].addAdjacency(griddy[i][j-1]);
+				for (int k = -1; k < 1; k+=2) {
+					if (j+k < COLUMNS && j+k >= 0) {
+						griddy[i][j].addAdjacency(griddy[i][j+k]);
+					}
 				}
 			}
 		}
@@ -165,6 +163,7 @@ public class Board {
 			String rowString = in.nextLine();
 			String[] rowArray = rowString.split(",");
 			
+			// If a row size is different from the previous row size, throw an exception
 			if (previousRowSize != -1) {
 				if (previousRowSize != rowArray.length) {
 					throw new BadConfigFormatException();

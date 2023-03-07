@@ -1,5 +1,12 @@
-I, Dawson Matthews, certify that I participated equitably in the creation of assignment C14A-2 Clue Paths 2 (Clue Pair) dated 03/02/2023.
-I, Connor Bendle, certify that I participated equitably in the creation of this assignment C14A-2 Clue Paths 2 (Clue Pair), dated 03/02/2023.
+I, Dawson Matthews, certify that I participated equitably in the creation of assignment C15A-1 Clue Paths 2 (Clue Pair) dated 03/06/2023.
+I, Connor Bendle, certify that I participated equitably in the creation of this assignment C15A-1 Clue Paths 2 (Clue Pair), dated 03/06/2023.
+
+
+commit 84e0cfc7824c95ed9625a5eaa91b40e831894815
+Author: Dawson Matthews <=>
+Date:   Mon Mar 6 18:53:07 2023 -0700
+
+    Passes setup tests and exception tests.
 
 commit a9d3c7e47db72d93ebc66117b6b1af82518d67fa
 Author: Dawson Matthews <=>
