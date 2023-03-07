@@ -264,4 +264,8 @@ public class Board {
 		// TODO Auto-generated method stub
 		return roomMap.get(cell.getInitial());
 	}
+
+	public Set<BoardCell> getAdjList(int i, int j) {
+		return griddy[i][j].getAdjList();
+	}
 }
