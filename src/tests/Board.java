@@ -4,16 +4,22 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 
 public class Board {
 
-	private final static int COLUMNS = 24;
-	private final static int ROWS = 24;
+	private static int COLUMNS = 24;
+	private static int ROWS = 24;
 	private String layoutConfigFile = "ClueLayout.csv";
 	private String setupConfigFile = "ClueSetup.txt";
-	//Map<Character, Room>roomMap;
+	Map<Character, Room> roomMap;
 	private static Board theInstance = new Board();
 	
 	private BoardCell[][] griddy;
@@ -22,7 +28,6 @@ public class Board {
 	
 	private Board() {
 		super();
-		
 	}
 	
 	// this method returns the only Board
@@ -30,12 +35,14 @@ public class Board {
     	return theInstance;
     }
 
+    // Adds all targets with a length of pathLength to the targets list.
 	void calcTargets(BoardCell startCell, int pathLength) {
 		visited = new HashSet<BoardCell>();
 		targets = new HashSet<BoardCell>();
 		visited.add(startCell);
 		findAllTargets(startCell, pathLength);
 	}
+	
 	
 	private void findAllTargets(BoardCell thisCell, int numSteps) {
 		for (BoardCell cell : thisCell.getAdjList()) {
@@ -64,13 +71,35 @@ public class Board {
 		return griddy[row][column];
 	}
 	
+	/*
+	 * loads the setup file
+	 * loads the layout file
+	 * adds all adjacent cells to each cell.
+	 */
 	public void initialize() {
-		griddy = new BoardCell[ROWS][COLUMNS];
-		for (int i = 0; i < ROWS; i++) {
-			for (int j = 0; j < COLUMNS; j++) {
-				BoardCell newCell = new BoardCell(i, j);
-				griddy[i][j] = newCell;
-			}
+				
+		try {
+			loadSetupConfig();
+		}
+		catch(FileNotFoundException e) {
+			System.out.println("HELP ME");
+			return;
+		}
+		catch(BadConfigFormatException e) {
+			System.out.println(e.getMessage());
+			return;
+		}
+		
+		try {
+			loadLayoutConfig();
+		}
+		catch(FileNotFoundException e) {
+			System.out.println("HELP ME!");
+			return;
+		}
+		catch(BadConfigFormatException e) {
+			System.out.println(e.getMessage());
+			return;
 		}
 		
 		for (int i = 0; i < ROWS; i++) {
@@ -91,25 +120,135 @@ public class Board {
 		}
 	}
 	
-	public void loadSetupConfig() {
+	/*
+	 * Creates the map of rooms
+	 */
+	public void loadSetupConfig() throws FileNotFoundException, BadConfigFormatException{
+		roomMap = new HashMap<Character, Room>();
+
+		FileReader reader = new FileReader("data/" + setupConfigFile);
+		Scanner in = new Scanner(reader);
 		
+		while (in.hasNextLine()) {
+			String roomInfo = in.nextLine();
+			if (roomInfo.charAt(0) == '/') {
+				continue;
+			}
+			
+			String[] infoArray = roomInfo.split(", ");
+			
+			// If anything is written other than 'Room' or 'Space', throw an exception
+			if (!infoArray[0].equals("Room") && !infoArray[0].equals("Space")) {
+				throw new BadConfigFormatException();
+			}
+			
+			Room newRoom = new Room(infoArray[1]);
+			char roomChar = infoArray[2].charAt(0);
+			roomMap.put(roomChar, newRoom);
+			
+		}
+		
+		in.close();
 	}
 	
-	public void loadLayoutConfig() {
+	/*
+	 * Read in all cells from the file, add them to the grid
+	 */
+	public void loadLayoutConfig() throws FileNotFoundException, BadConfigFormatException {
+		ArrayList<String []> rowList = new ArrayList<String[]>();
+		FileReader reader = new FileReader("data/" + layoutConfigFile);
+		Scanner in = new Scanner(reader);
 		
+		int previousRowSize = -1;
+		
+		while (in.hasNextLine()) {
+			String rowString = in.nextLine();
+			String[] rowArray = rowString.split(",");
+			
+			if (previousRowSize != -1) {
+				if (previousRowSize != rowArray.length) {
+					throw new BadConfigFormatException();
+				}
+			}
+			previousRowSize = rowArray.length;
+			
+			rowList.add(rowArray);
+		}
+		
+		in.close();
+		
+		ROWS = rowList.size();
+		COLUMNS = rowList.get(0).length;
+		griddy = new BoardCell[ROWS][COLUMNS];
+		for (int i = 0; i < ROWS; i++) {
+			for (int j = 0; j < COLUMNS; j++) {
+				
+				BoardCell newCell = new BoardCell(i, j);
+				if (roomMap.containsKey(rowList.get(i)[j].charAt(0))){
+					// TODO: decide when is room
+					newCell.setRoom(true);
+				}
+				else {
+					throw new BadConfigFormatException();
+				}
+				
+				newCell.setInitial(rowList.get(i)[j].charAt(0));
+				
+				
+				newCell.setDoorDirection(DoorDirection.NONE);
+				newCell.setLabel(false);
+				newCell.setCenter(false);
+				newCell.setSecretPassage(' ');
+
+				if(rowList.get(i)[j].length() == 2) {
+					if(rowList.get(i)[j].charAt(1) == '<') {
+						newCell.setDoorDirection(DoorDirection.LEFT);
+					}
+					else if(rowList.get(i)[j].charAt(1) == '>') {
+						newCell.setDoorDirection(DoorDirection.RIGHT);
+					}
+					else if(rowList.get(i)[j].charAt(1) == 'v') {
+						newCell.setDoorDirection(DoorDirection.DOWN);
+					}
+					else if(rowList.get(i)[j].charAt(1) == '^') {
+						newCell.setDoorDirection(DoorDirection.UP);
+					}
+					
+					if(rowList.get(i)[j].charAt(1) == '#') {
+						newCell.setLabel(true);
+						roomMap.get(rowList.get(i)[j].charAt(0)).setLabelCell(newCell);
+					}
+					
+					if(rowList.get(i)[j].charAt(1) == '*') {
+						newCell.setCenter(true);
+						roomMap.get(rowList.get(i)[j].charAt(0)).setCenterCell(newCell);
+					}
+					
+					// If the second letter is A-Z
+					if (rowList.get(i)[j].charAt(1) >= 'A' && rowList.get(i)[j].charAt(1) <= 'Z') {
+						newCell.setSecretPassage(rowList.get(i)[j].charAt(1));
+					}
+					
+					
+				}
+				
+				griddy[i][j] = newCell;
+			}
+		}
 	}
 	
 	Set<BoardCell> getTargets() {
 		return targets;
 	}
 
-	public void setConfigFiles(String string, String string2) {
-		
+	public void setConfigFiles(String layoutName, String setupName) {
+		layoutConfigFile = layoutName;
+		setupConfigFile = setupName;
 	}
 
 	public Room getRoom(char c) {
 		// TODO Auto-generated method stub
-		return new Room();
+		return roomMap.get(c);
 	}
 
 	public int getNumRows() {
@@ -124,8 +263,6 @@ public class Board {
 
 	public Room getRoom(BoardCell cell) {
 		// TODO Auto-generated method stub
-		return new Room();
+		return roomMap.get(cell.getInitial());
 	}
-	
-	
 }

@@ -48,29 +48,58 @@ public class BoardCell {
 	boolean getOccupied() {
 		return isOccupied;
 	}
-
+	
 	public boolean isDoorway() {
-		// TODO Auto-generated method stub
-		return false;
+		if (doorDirection == DoorDirection.NONE) {
+			return false;
+		}
+		else {
+			return true;
+		}
 	}
 
 	public DoorDirection getDoorDirection() {
 		// TODO Auto-generated method stub
-		return null;
+		return doorDirection;
+	}
+	
+	public void setDoorDirection(DoorDirection direction) {
+		// TODO Auto-generated method stub
+		this.doorDirection = direction;
 	}
 
 	public boolean isLabel() {
 		// TODO Auto-generated method stub
-		return false;
+		return roomLabel;
+	}
+	
+	public void setLabel(boolean roomLabel) {
+		this.roomLabel = roomLabel;
 	}
 
 	public boolean isRoomCenter() {
 		// TODO Auto-generated method stub
-		return false;
+		return roomCenter;
+	}
+	
+	public void setCenter(boolean center) {
+		this.roomCenter = center;
 	}
 
+	public void setSecretPassage(char destinationChar) {
+		this.secretPassage = destinationChar;
+	}
+	
 	public char getSecretPassage() {
 		// TODO Auto-generated method stub
-		return 0;
+		return secretPassage;
+	}
+
+	public char getInitial() {
+		return initial;
+	}
+	
+	public void setInitial(char initial) {
+		this.initial = initial;
 	}
 }

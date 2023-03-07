@@ -9,8 +9,8 @@ package tests;
 import static org.junit.Assert.*;
 
 import org.junit.Assert;
-import org.junit.Test;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 public class FileInitTests {
 	// Constants that I will use to test whether the file was loaded correctly
@@ -41,7 +41,7 @@ public class FileInitTests {
 		assertEquals("Discrete", board.getRoom('D').getName() );
 		assertEquals("Linear Algebra", board.getRoom('L').getName() );
 		assertEquals("Probability", board.getRoom('P').getName() );
-		assertEquals("GameDevelopment", board.getRoom('G').getName() );
+		assertEquals("Game Development", board.getRoom('G').getName() );
 		assertEquals("Database Management", board.getRoom('M').getName() );
 		assertEquals("Chemistry", board.getRoom('C').getName() );
 		assertEquals("Physics", board.getRoom('H').getName() );
@@ -91,8 +91,9 @@ public class FileInitTests {
 		for (int row = 0; row < board.getNumRows(); row++)
 			for (int col = 0; col < board.getNumColumns(); col++) {
 				BoardCell cell = board.getCell(row, col);
-				if (cell.isDoorway())
+				if (cell.isDoorway()) {
 					numDoors++;
+				}
 			}
 		Assert.assertEquals(11, numDoors);
 	}
