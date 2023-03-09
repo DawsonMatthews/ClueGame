@@ -25,8 +25,12 @@ public class BoardCell {
 		adjacencyList = new HashSet<BoardCell>();
 	}
 	
-	void addAdjacency(BoardCell cell) {
+	public void addAdjacency(BoardCell cell) {
 		adjacencyList.add(cell);
+	}
+	
+	public void clearAdjacencyList() {
+		adjacencyList.clear();
 	}
 	
 	Set<BoardCell> getAdjList() {
@@ -42,7 +46,7 @@ public class BoardCell {
 	}
 	
 	void setOccupied(boolean occupied) {
-		isOccupied = occupied;
+		this.isOccupied = occupied;
 	}
 	
 	boolean getOccupied() {

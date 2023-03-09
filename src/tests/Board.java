@@ -26,6 +26,8 @@ public class Board {
 	private Set<BoardCell> targets;
 	private Set<BoardCell> visited;
 	
+	AdjacencyListCalculator calculator = new AdjacencyListCalculator();
+	
 	private Board() {
 		super();
 	}
@@ -37,6 +39,7 @@ public class Board {
 
     // Adds all targets with a length of pathLength to the targets list.
 	void calcTargets(BoardCell startCell, int pathLength) {
+		calculator.SetAdjacencyList(ROWS, COLUMNS, griddy, roomMap);
 		visited = new HashSet<BoardCell>();
 		targets = new HashSet<BoardCell>();
 		visited.add(startCell);
@@ -46,7 +49,7 @@ public class Board {
 	
 	private void findAllTargets(BoardCell thisCell, int numSteps) {
 		for (BoardCell cell : thisCell.getAdjList()) {
-			if (visited.contains(cell) || cell.getOccupied()) {
+			if (visited.contains(cell) || (cell.getOccupied() && cell.isRoom() == false)) {
 				continue;
 			}
 			
@@ -102,76 +105,9 @@ public class Board {
 			return;
 		}
 		
-		SetAdjacencyList();
+		calculator.SetAdjacencyList(ROWS, COLUMNS, griddy, roomMap);
 	}
 	
-	private void SetAdjacencyList() {
-		for (int i = 0; i < ROWS; i++) {
-			//System.out.println();
-			for (int j = 0; j < COLUMNS; j++) {
-				BoardCell cell = griddy[i][j];
-				
-				//System.out.print(cell.getInitial() + " (" + roomMap.get(cell.getInitial()).getName() + ") ");
-				
-				if (roomMap.get(cell.getInitial()).getName().equals("Walkway")) {
-					BoardCell adjacentCell;
-					if (cell.isDoorway() == true) {
-						Room adjacentRoom;
-						if (cell.getDoorDirection() == DoorDirection.LEFT) {
-							adjacentRoom = roomMap.get(griddy[i-1][j].getInitial());
-						}
-						else if (cell.getDoorDirection() == DoorDirection.RIGHT) {
-							adjacentRoom = roomMap.get(griddy[i+1][j].getInitial());
-						}
-						
-						else if (cell.getDoorDirection() == DoorDirection.UP) {
-							adjacentRoom = roomMap.get(griddy[i][j+1].getInitial());
-						}
-						
-						else {
-							adjacentRoom = roomMap.get(griddy[i-1][j].getInitial());
-						}
-						
-						BoardCell roomCenterCell = adjacentRoom.getCenterCell();
-						cell.addAdjacency(roomCenterCell);
-						roomCenterCell.addAdjacency(cell);
-					}
-					if ((i+1) < ROWS) {
-						adjacentCell = griddy[i+1][j];
-						
-						if (roomMap.get(adjacentCell.getInitial()).getName() == "Walkway" ) {
-							cell.addAdjacency(adjacentCell);
-						}
-					}
-					
-					if ((i-1) >= 0) {
-						adjacentCell = griddy[i-1][j];
-						
-						if (roomMap.get(adjacentCell.getInitial()).getName() == "Walkway" ) {
-							cell.addAdjacency(adjacentCell);
-						}
-					}
-					
-					if ((j+1) < COLUMNS) {
-						adjacentCell = griddy[i][j+1];
-						
-						if (roomMap.get(adjacentCell.getInitial()).getName() == "Walkway" ) {
-							cell.addAdjacency(adjacentCell);
-						}
-					}
-					
-					if ((j-1) >= 0) {
-						adjacentCell = griddy[i][j-1];
-						
-						if (roomMap.get(adjacentCell.getInitial()).getName() == "Walkway" ) {
-							cell.addAdjacency(adjacentCell);
-						}
-					}
-				}
-			}
-		}
-	}
-
 	/*
 	 * Creates the map of rooms
 	 */
@@ -197,7 +133,7 @@ public class Board {
 			Room newRoom = new Room(infoArray[1]);
 			
 			String roomType = infoArray[0];
-			if (roomType == "Room") {
+			if (roomType.equals("Room")) {
 				newRoom.setRoom(true);
 			}
 			else {
@@ -285,7 +221,8 @@ public class Board {
 					
 					if(rowList.get(i)[j].charAt(1) == '*') {
 						newCell.setCenter(true);
-						roomMap.get(rowList.get(i)[j].charAt(0)).setCenterCell(newCell);
+						char cellChar = rowList.get(i)[j].charAt(0);
+						roomMap.get(cellChar).setCenterCell(newCell);
 					}
 					
 					// If the second letter is A-Z
