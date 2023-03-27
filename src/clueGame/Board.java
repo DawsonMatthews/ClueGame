@@ -24,9 +24,7 @@ public class Board {
 	private Map<Character, Room> roomMap;
 	private Set<BoardCell> targets;
 	private Set<BoardCell> visited;
-	
-	AdjacencyListCalculator calculator = new AdjacencyListCalculator();
-	
+		
 	private Board() {
 		super();
 	}
@@ -38,7 +36,7 @@ public class Board {
 
     // Adds all targets with a length of pathLength to the targets list.
 	public void calcTargets(BoardCell startCell, int pathLength) {
-		calculator.SetAdjacencyList(rows, columns, griddy, roomMap);
+		AdjacencyListCalculator.SetAdjacencyList(rows, columns, griddy, roomMap);
 		visited = new HashSet<BoardCell>();
 		targets = new HashSet<BoardCell>();
 		visited.add(startCell);
@@ -104,7 +102,7 @@ public class Board {
 			return;
 		}
 		
-		calculator.SetAdjacencyList(rows, columns, griddy, roomMap);
+		AdjacencyListCalculator.SetAdjacencyList(rows, columns, griddy, roomMap);
 	}
 	
 	/*

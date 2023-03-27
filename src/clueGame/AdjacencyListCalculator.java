@@ -4,17 +4,17 @@ import java.util.Map;
 
 public class AdjacencyListCalculator implements SetWalkwayAdjacency {
 
-	public void SetAdjacencyList(int ROWS, int COLUMNS, BoardCell[][] griddy, Map<Character, Room> roomMap) {
+	public static void SetAdjacencyList(int rows, int columns, BoardCell[][] griddy, Map<Character, Room> roomMap) {
 		
-		ClearAllCellAdjacencyLists(ROWS, COLUMNS, griddy);
+		ClearAllCellAdjacencyLists(rows, columns, griddy);
 		
-		for (int i = 0; i < ROWS; i++) {
-			for (int j = 0; j < COLUMNS; j++) {
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < columns; j++) {
 				
 				BoardCell cell = griddy[i][j];
 				
 				if (roomMap.get(cell.getInitial()).getName().equals("Walkway")) {
-					SetWalkwayAdjacency(ROWS, COLUMNS, griddy, roomMap, i, j, cell);
+					SetWalkwayAdjacency(rows, columns, griddy, roomMap, i, j, cell);
 				}
 				
 				if (cell.getSecretPassage() != ' ') {
@@ -24,7 +24,7 @@ public class AdjacencyListCalculator implements SetWalkwayAdjacency {
 		}
 	}
 
-	private void SetSecretPassageAdjacency(Map<Character, Room> roomMap, BoardCell cell) {
+	private static void SetSecretPassageAdjacency(Map<Character, Room> roomMap, BoardCell cell) {
 		char roomChar = cell.getInitial();
 		Room startRoom = roomMap.get(roomChar);
 		BoardCell startCenterCell = startRoom.getCenterCell();
@@ -36,7 +36,7 @@ public class AdjacencyListCalculator implements SetWalkwayAdjacency {
 		startCenterCell.addAdjacency(targetCenterCell);
 	}
 
-	private void SetWalkwayAdjacency(int ROWS, int COLUMNS, BoardCell[][] griddy, Map<Character, Room> roomMap, int i, int j, BoardCell cell) {
+	private static void SetWalkwayAdjacency(int ROWS, int COLUMNS, BoardCell[][] griddy, Map<Character, Room> roomMap, int i, int j, BoardCell cell) {
 		
 		BoardCell adjacentCell;
 		if (cell.isDoorway() == true) {
@@ -93,7 +93,7 @@ public class AdjacencyListCalculator implements SetWalkwayAdjacency {
 		}
 	}
 
-	private void ClearAllCellAdjacencyLists(int ROWS, int COLUMNS, BoardCell[][] griddy) {
+	private static void ClearAllCellAdjacencyLists(int ROWS, int COLUMNS, BoardCell[][] griddy) {
 		for (int i = 0; i < ROWS; i++) {
 			for (int j = 0; j < COLUMNS; j++) {
 				BoardCell cell = griddy[i][j];
