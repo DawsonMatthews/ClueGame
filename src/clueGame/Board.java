@@ -15,8 +15,8 @@ import java.util.Set;
 
 public class Board {
 
-	private int COLUMNS;
-	private int ROWS;
+	private int columns;
+	private int rows;
 	private String layoutConfigFile = "ClueLayout.csv";
 	private String setupConfigFile = "ClueSetup.txt";
 	Map<Character, Room> roomMap;
@@ -39,7 +39,7 @@ public class Board {
 
     // Adds all targets with a length of pathLength to the targets list.
 	public void calcTargets(BoardCell startCell, int pathLength) {
-		calculator.SetAdjacencyList(ROWS, COLUMNS, griddy, roomMap);
+		calculator.SetAdjacencyList(rows, columns, griddy, roomMap);
 		visited = new HashSet<BoardCell>();
 		targets = new HashSet<BoardCell>();
 		visited.add(startCell);
@@ -105,7 +105,7 @@ public class Board {
 			return;
 		}
 		
-		calculator.SetAdjacencyList(ROWS, COLUMNS, griddy, roomMap);
+		calculator.SetAdjacencyList(rows, columns, griddy, roomMap);
 	}
 	
 	/*
@@ -174,11 +174,11 @@ public class Board {
 		
 		in.close();
 		
-		ROWS = rowList.size();
-		COLUMNS = rowList.get(0).length;
-		griddy = new BoardCell[ROWS][COLUMNS];
-		for (int i = 0; i < ROWS; i++) {
-			for (int j = 0; j < COLUMNS; j++) {
+		rows = rowList.size();
+		columns = rowList.get(0).length;
+		griddy = new BoardCell[rows][columns];
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < columns; j++) {
 				
 				BoardCell newCell = new BoardCell(i, j);
 				
@@ -254,12 +254,12 @@ public class Board {
 
 	public int getNumRows() {
 		// TODO Auto-generated method stub
-		return ROWS;
+		return rows;
 	}
 
 	public int getNumColumns() {
 		// TODO Auto-generated method stub
-		return COLUMNS;
+		return columns;
 	}
 
 	public Room getRoom(BoardCell cell) {
