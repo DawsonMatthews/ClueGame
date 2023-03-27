@@ -19,10 +19,9 @@ public class Board {
 	private int rows;
 	private String layoutConfigFile = "ClueLayout.csv";
 	private String setupConfigFile = "ClueSetup.txt";
-	Map<Character, Room> roomMap;
 	private static Board theInstance = new Board();
-	
 	private BoardCell[][] griddy;
+	private Map<Character, Room> roomMap;
 	private Set<BoardCell> targets;
 	private Set<BoardCell> visited;
 	
