@@ -16,9 +16,12 @@ public class BoardCell {
 	public BoardCell(int row, int column) {
 		super();
 		
+		secretPassage = ' ';
 		isRoom = false;
 		isOccupied = false;
-		
+		roomLabel = false;
+		roomCenter = false;
+		doorDirection = DoorDirection.NONE;
 		adjacencyList = new HashSet<BoardCell>();
 	}
 	

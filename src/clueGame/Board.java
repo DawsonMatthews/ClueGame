@@ -180,13 +180,6 @@ public class Board {
 				
 				newCell.setInitial(rowList.get(i)[j].charAt(0));
 				
-				
-				
-				newCell.setDoorDirection(DoorDirection.NONE);
-				newCell.setLabel(false);
-				newCell.setCenter(false);
-				newCell.setSecretPassage(' ');
-
 				if(rowList.get(i)[j].length() == 2) {
 					if(rowList.get(i)[j].charAt(1) == '<') {
 						newCell.setDoorDirection(DoorDirection.LEFT);
