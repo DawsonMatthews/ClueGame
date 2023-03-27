@@ -5,7 +5,6 @@ import java.util.Set;
 
 public class BoardCell {
 	
-	private int row, column;
 	private Boolean isRoom, isOccupied;
 	private char initial;
 	private DoorDirection doorDirection;
@@ -16,8 +15,6 @@ public class BoardCell {
 	
 	public BoardCell(int row, int column) {
 		super();
-		this.row = row;
-		this.column = column;
 		
 		isRoom = false;
 		isOccupied = false;
