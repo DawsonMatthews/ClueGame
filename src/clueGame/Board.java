@@ -38,7 +38,7 @@ public class Board {
     }
 
     // Adds all targets with a length of pathLength to the targets list.
-	void calcTargets(BoardCell startCell, int pathLength) {
+	public void calcTargets(BoardCell startCell, int pathLength) {
 		calculator.SetAdjacencyList(ROWS, COLUMNS, griddy, roomMap);
 		visited = new HashSet<BoardCell>();
 		targets = new HashSet<BoardCell>();
@@ -70,7 +70,7 @@ public class Board {
 		}
 	}
 	
-	BoardCell getCell(int row, int column) {
+	public BoardCell getCell(int row, int column) {
 		return griddy[row][column];
 	}
 	
@@ -238,7 +238,7 @@ public class Board {
 		}
 	}
 	
-	Set<BoardCell> getTargets() {
+	public Set<BoardCell> getTargets() {
 		return targets;
 	}
 

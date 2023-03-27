@@ -45,7 +45,7 @@ public class BoardCell {
 		return isRoom;
 	}
 	
-	void setOccupied(boolean occupied) {
+	public void setOccupied(boolean occupied) {
 		this.isOccupied = occupied;
 	}
 	
