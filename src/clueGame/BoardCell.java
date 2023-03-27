@@ -5,12 +5,13 @@ import java.util.Set;
 
 public class BoardCell {
 	
-	private Boolean isRoom, isOccupied;
+	private boolean isRoom;
+	private boolean isOccupied;
+	private boolean isLabel;
+	private boolean isCenter;
 	private char initial;
-	private DoorDirection doorDirection;
-	private boolean roomLabel;
-	private boolean roomCenter;
 	private char secretPassage;
+	private DoorDirection doorDirection;
 	private Set<BoardCell> adjacencyList;
 	
 	public BoardCell(int row, int column) {
@@ -19,8 +20,8 @@ public class BoardCell {
 		secretPassage = ' ';
 		isRoom = false;
 		isOccupied = false;
-		roomLabel = false;
-		roomCenter = false;
+		isLabel = false;
+		isCenter = false;
 		doorDirection = DoorDirection.NONE;
 		adjacencyList = new HashSet<BoardCell>();
 	}
@@ -74,20 +75,20 @@ public class BoardCell {
 
 	public boolean isLabel() {
 		// TODO Auto-generated method stub
-		return roomLabel;
+		return isLabel;
 	}
 	
 	public void setLabel(boolean roomLabel) {
-		this.roomLabel = roomLabel;
+		this.isLabel = roomLabel;
 	}
 
 	public boolean isRoomCenter() {
 		// TODO Auto-generated method stub
-		return roomCenter;
+		return isCenter;
 	}
 	
 	public void setCenter(boolean center) {
-		this.roomCenter = center;
+		this.isCenter = center;
 	}
 
 	public void setSecretPassage(char destinationChar) {
