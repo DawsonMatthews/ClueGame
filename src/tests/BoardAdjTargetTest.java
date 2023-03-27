@@ -9,10 +9,13 @@ import java.util.Set;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import clueGame.Board;
+import clueGame.BoardCell;
+
 public class BoardAdjTargetTest {
 	// We make the Board static because we can load it one time and 
 	// then do all the tests. 
-	private static Board board;
+	static Board board;
 	
 	@BeforeAll
 	public static void setUp() {

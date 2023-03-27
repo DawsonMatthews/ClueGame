@@ -1,4 +1,4 @@
-package tests;
+package clueGame;
 
 import java.util.Map;
 

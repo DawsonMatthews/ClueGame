@@ -1,4 +1,4 @@
-package tests;
+package clueGame;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -15,8 +15,8 @@ import java.util.Set;
 
 public class Board {
 
-	private static int COLUMNS = 24;
-	private static int ROWS = 24;
+	private int COLUMNS;
+	private int ROWS;
 	private String layoutConfigFile = "ClueLayout.csv";
 	private String setupConfigFile = "ClueSetup.txt";
 	Map<Character, Room> roomMap;

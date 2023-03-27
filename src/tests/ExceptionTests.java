@@ -11,6 +11,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import clueGame.BadConfigFormatException;
+import clueGame.Board;
+
 
 public class ExceptionTests {
 
