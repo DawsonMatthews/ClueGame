@@ -80,9 +80,10 @@ public class Board {
 				
 		try {
 			loadSetupConfig();
+			loadLayoutConfig();
 		}
 		catch(FileNotFoundException e) {
-			System.out.println("HELP ME");
+			System.out.println(e.getMessage());
 			return;
 		}
 		catch(BadConfigFormatException e) {
@@ -90,17 +91,6 @@ public class Board {
 			return;
 		}
 		
-		try {
-			loadLayoutConfig();
-		}
-		catch(FileNotFoundException e) {
-			System.out.println("HELP ME!");
-			return;
-		}
-		catch(BadConfigFormatException e) {
-			System.out.println(e.getMessage());
-			return;
-		}
 		
 		AdjacencyListCalculator.SetAdjacencyList(rows, columns, griddy, roomMap);
 	}
@@ -124,7 +114,7 @@ public class Board {
 			
 			// If anything is written other than 'Room' or 'Space', throw an exception
 			if (!infoArray[0].equals("Room") && !infoArray[0].equals("Space")) {
-				throw new BadConfigFormatException();
+				throw new BadConfigFormatException("Room labelled as neither room nor space.");
 			}
 			
 			Room newRoom = new Room(infoArray[1]);
@@ -161,7 +151,7 @@ public class Board {
 			// If a row size is different from the previous row size, throw an exception
 			if (previousRowSize != -1) {
 				if (previousRowSize != rowArray.length) {
-					throw new BadConfigFormatException();
+					throw new BadConfigFormatException("Improper row size.");
 				}
 			}
 			previousRowSize = rowArray.length;

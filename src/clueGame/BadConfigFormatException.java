@@ -4,12 +4,12 @@ public class BadConfigFormatException extends Exception {
 
 	public BadConfigFormatException() {
 		// TODO Auto-generated constructor stub
-		super("Config format file:  \n Status: bad (not usable)");
+		super("Config format file status: Bad");
 	}
 	
-	public BadConfigFormatException(String fileName) {
+	public BadConfigFormatException(String message) {
 		// TODO Auto-generated constructor stub
-		super(fileName + " Bad");
+		super(message);
 	}
 
 	
