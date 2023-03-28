@@ -24,6 +24,9 @@ public class Board {
 	private Map<Character, Room> roomMap;
 	private Set<BoardCell> targets;
 	private Set<BoardCell> visited;
+	private Player[] playerList = new Player[6];
+	private Solution theAnswer;
+	
 		
 	private Board() {
 		super();
@@ -218,6 +221,10 @@ public class Board {
 		}
 	}
 	
+	public void deal() {
+		
+	}
+	
 	public Set<BoardCell> getTargets() {
 		return targets;
 	}
@@ -249,5 +256,9 @@ public class Board {
 
 	public Set<BoardCell> getAdjList(int i, int j) {
 		return griddy[i][j].getAdjList();
+	}
+	
+	public Player getPlayer(int position) {
+		return playerList[position];
 	}
 }
