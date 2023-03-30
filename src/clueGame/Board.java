@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -24,6 +25,8 @@ public class Board {
 	private Map<Character, Room> roomMap;
 	private Set<BoardCell> targets;
 	private Set<BoardCell> visited;
+	private ArrayList<Card> initialDecku;
+	private ArrayList<Card> decku;// u stands for upper oriented (implemented in upper orientated fashion)
 	private Player[] playerList = new Player[6];
 	private Solution theAnswer;
 	
@@ -80,7 +83,6 @@ public class Board {
 	 * adds all adjacent cells to each cell.
 	 */
 	public void initialize() {
-				
 		try {
 			loadSetupConfig();
 			loadLayoutConfig();
@@ -93,8 +95,7 @@ public class Board {
 			System.out.println(e.getMessage());
 			return;
 		}
-		
-		
+			
 		AdjacencyListCalculator.SetAdjacencyList(rows, columns, griddy, roomMap);
 	}
 	
@@ -103,11 +104,17 @@ public class Board {
 	 */
 	public void loadSetupConfig() throws FileNotFoundException, BadConfigFormatException{
 		roomMap = new HashMap<Character, Room>();
+		initialDecku = new ArrayList<Card>();
+		decku = new ArrayList<Card>();
 		boolean playerCreated = false;
 		int playerIndex = 0;
 
 		FileReader reader = new FileReader("data/" + setupConfigFile);
 		Scanner in = new Scanner(reader);
+		
+		ArrayList<Card> personCards = new ArrayList<Card>();
+		ArrayList<Card> roomCards = new ArrayList<Card>();
+		ArrayList<Card> weaponCards = new ArrayList<Card>();
 		
 		while (in.hasNextLine()) {
 			String roomInfo = in.nextLine();
@@ -119,12 +126,13 @@ public class Board {
 			
 			// If anything is written other than 'Room' or 'Space', throw an exception
 			String objectType = infoArray[0];
-			if (!objectType.equals("Room") && !objectType.equals("Space") && !objectType.equals("Player")) {
-				throw new BadConfigFormatException("Room labelled as neither room nor space nor person.");
-			}
+
 			
+			Card newCard;
 			if (objectType.equals("Room") || objectType.equals("Space")) {
-				Room newRoom = new Room(infoArray[1]);
+				
+				String name = infoArray[1];
+				Room newRoom = new Room(name);
 				
 				String roomType = infoArray[0];
 				if (roomType.equals("Room")) {
@@ -135,11 +143,17 @@ public class Board {
 				}
 				char roomChar = infoArray[2].charAt(0);
 				roomMap.put(roomChar, newRoom);
+				
+				if (objectType.equals("Room")) {
+					newCard = new Card(name, CardType.ROOM);
+					initialDecku.add(newCard);
+					roomCards.add(newCard);
+				}
+				
 			}
 			else if (objectType.equals("Player")) {
 				String name = infoArray[1];
 				char color =  infoArray[2].charAt(0);
-				System.out.println(color);
 				int row = Integer.parseInt(infoArray[3]);
 				int column = Integer.parseInt(infoArray[4]);
 				Player newPlayer;
@@ -156,10 +170,42 @@ public class Board {
 				
 				playerList[playerIndex] = newPlayer;
 				playerIndex++;
+				
+				newCard = new Card(name, CardType.PERSON);
+				initialDecku.add(newCard);
+				personCards.add(newCard);
 			}
-			
+			else if (objectType.equals("Weapon")) {
+				String name = infoArray[1];
+				newCard = new Card(name, CardType.WEAPON);
+				initialDecku.add(newCard);
+				weaponCards.add(newCard);
+			}
+			else {
+				throw new BadConfigFormatException("Room labelled as neither room nor space nor person nor weapon");
+			}
 		}
 		
+		Random random = new Random();
+		
+		int roomIndex = random.nextInt(roomCards.size());
+		Card roomCard = roomCards.get(roomIndex);
+		roomCards.remove(roomCard);
+		
+		int personIndex = random.nextInt(personCards.size());
+		Card personCard = personCards.get(personIndex);
+		personCards.remove(personCard);
+		
+		int weaponIndex = random.nextInt(weaponCards.size());
+		Card weaponCard = weaponCards.get(weaponIndex);
+		weaponCards.remove(weaponCard);
+		
+		theAnswer = new Solution(personCard, roomCard, weaponCard);
+		decku.addAll(personCards);
+		decku.addAll(roomCards);
+		decku.addAll(weaponCards);
+		
+
 		in.close();
 	}
 	
@@ -286,5 +332,16 @@ public class Board {
 	
 	public Player getPlayer(int position) {
 		return playerList[position];
+	}
+	
+	/*
+	 * FOR TESTING ONLY
+	 */
+	public ArrayList<Card> getDecku() {
+		return initialDecku;
+	}
+	
+	public Solution getSolution() {
+		return theAnswer;
 	}
 }

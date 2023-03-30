@@ -18,3 +18,10 @@ Player, Dejun, P, 22, 12
 Player, Terry, B, 22, 14
 Player, Liam, W, 22, 16
 Player, Kathleen, O, 0, 23
+//Weapons
+Weapon, 95% Confidence Interval
+Weapon, The Debugger
+Weapon, The Inductor
+Weapon, Eigen Knife
+Weapon, Binomial Distributor
+Weapon, The Normalizer

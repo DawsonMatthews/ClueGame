@@ -3,15 +3,19 @@ package tests;
 import static org.junit.Assert.*;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import clueGame.Board;
+import clueGame.Card;
+import clueGame.CardType;
 import clueGame.ComputerPlayer;
 import clueGame.HumanPlayer;
 import clueGame.Player;
+import clueGame.Solution;
 
 public class GameSetupTests {
 
@@ -47,5 +51,25 @@ public class GameSetupTests {
 			player = board.getPlayer(i);
 			assertTrue(player instanceof ComputerPlayer);
 		}
+	}
+	
+	@Test
+	public void testDeckLoaded() {
+		ArrayList<Card> deck = board.getDecku();
+		assertEquals(21, deck.size());
+		assertEquals(deck.get(14).getName(), "Kathleen");
+		assertEquals(deck.get(14).getType(), CardType.PERSON);
+		assertEquals(deck.get(0).getName(), "Statistics");
+		assertEquals(deck.get(0).getType(), CardType.ROOM);
+		assertEquals(deck.get(15).getName(), "95% Confidence Interval");
+		assertEquals(deck.get(15).getType(), CardType.WEAPON);
+	}
+	
+	@Test
+	public void testSolutionDealt() {
+		Solution solution = board.getSolution();
+		assertEquals(CardType.PERSON, solution.getPersonCard().getType());
+		assertEquals(CardType.ROOM, solution.getRoomCard().getType());
+		assertEquals(CardType.WEAPON, solution.getWeaponCard().getType());
 	}
 }
