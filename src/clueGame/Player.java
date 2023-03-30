@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 public abstract class Player {
 
@@ -8,6 +9,7 @@ public abstract class Player {
 	private Color color;
 	private int row;
 	private int column;
+	private ArrayList<Card> hand = new ArrayList<Card>();
 	
 	public Player(String name, char color, int row, int column) throws BadConfigFormatException {
 		this.name = name;
@@ -41,7 +43,7 @@ public abstract class Player {
 	}
 	
 	public void updateHand(Card card) {
-		
+		hand.add(card);
 	}
 
 	/*
@@ -63,4 +65,10 @@ public abstract class Player {
 	public int getColumn() {
 		return column;
 	}
+
+	public ArrayList<Card> getHand() {
+		return hand;
+	}
+	
+	
 }

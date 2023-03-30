@@ -95,6 +95,8 @@ public class Board {
 			System.out.println(e.getMessage());
 			return;
 		}
+		
+		deal();
 			
 		AdjacencyListCalculator.SetAdjacencyList(rows, columns, griddy, roomMap);
 	}
@@ -294,7 +296,18 @@ public class Board {
 	}
 	
 	public void deal() {
-		
+		Random random = new Random();
+		int playerIndex = 0;
+		while (decku.size() > 0) {
+			int randIndex = random.nextInt(decku.size());
+			Card randCard = decku.get(randIndex);
+			playerList[playerIndex].updateHand(randCard);
+			decku.remove(randCard);
+			playerIndex++;
+			if (playerIndex == 6) {
+				playerIndex = 0;
+			}
+		}
 	}
 	
 	public Set<BoardCell> getTargets() {
@@ -337,8 +350,12 @@ public class Board {
 	/*
 	 * FOR TESTING ONLY
 	 */
-	public ArrayList<Card> getDecku() {
+	public ArrayList<Card> getInitialDecku() {
 		return initialDecku;
+	}
+	
+	public ArrayList<Card> getDecku() {
+		return decku;
 	}
 	
 	public Solution getSolution() {

@@ -55,7 +55,7 @@ public class GameSetupTests {
 	
 	@Test
 	public void testDeckLoaded() {
-		ArrayList<Card> deck = board.getDecku();
+		ArrayList<Card> deck = board.getInitialDecku();
 		assertEquals(21, deck.size());
 		assertEquals(deck.get(14).getName(), "Kathleen");
 		assertEquals(deck.get(14).getType(), CardType.PERSON);
@@ -71,5 +71,26 @@ public class GameSetupTests {
 		assertEquals(CardType.PERSON, solution.getPersonCard().getType());
 		assertEquals(CardType.ROOM, solution.getRoomCard().getType());
 		assertEquals(CardType.WEAPON, solution.getWeaponCard().getType());
+	}
+	
+	@Test
+	public void testDeal() {
+		int maxHand = 0;
+		int minHand = board.getPlayer(0).getHand().size();
+		ArrayList<Card> deck = board.getDecku();
+		for (int i = 0; i < 5; i++) {
+			int handSize = board.getPlayer(i).getHand().size();
+			if (handSize > maxHand) {
+				maxHand = handSize;
+			}
+			
+			else if (handSize < minHand) {
+				minHand = handSize;
+			}	
+		}
+		assertTrue(maxHand - minHand <= 1);
+		assertEquals(deck.size(), 0);
+		assertTrue(minHand >= 1);
+		
 	}
 }
