@@ -12,9 +12,9 @@ Room, Physics, H
 Space, Unused, X
 Space, Walkway, W
 // Players
-Joel, R, 22, 8
-Mark, G, 22, 10
-Dejun, P, 22, 12
-Terry, B, 22, 14
-Liam, W, 22, 16
-Kathleen, O, 0, 23
+Player, Joel, R, 22, 8
+Player, Mark, G, 22, 10
+Player, Dejun, P, 22, 12
+Player, Terry, B, 22, 14
+Player, Liam, W, 22, 16
+Player, Kathleen, O, 0, 23

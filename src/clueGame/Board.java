@@ -103,6 +103,8 @@ public class Board {
 	 */
 	public void loadSetupConfig() throws FileNotFoundException, BadConfigFormatException{
 		roomMap = new HashMap<Character, Room>();
+		boolean playerCreated = false;
+		int playerIndex = 0;
 
 		FileReader reader = new FileReader("data/" + setupConfigFile);
 		Scanner in = new Scanner(reader);
@@ -116,21 +118,45 @@ public class Board {
 			String[] infoArray = roomInfo.split(", ");
 			
 			// If anything is written other than 'Room' or 'Space', throw an exception
-			if (!infoArray[0].equals("Room") && !infoArray[0].equals("Space")) {
-				throw new BadConfigFormatException("Room labelled as neither room nor space.");
+			String objectType = infoArray[0];
+			if (!objectType.equals("Room") && !objectType.equals("Space") && !objectType.equals("Player")) {
+				throw new BadConfigFormatException("Room labelled as neither room nor space nor person.");
 			}
 			
-			Room newRoom = new Room(infoArray[1]);
-			
-			String roomType = infoArray[0];
-			if (roomType.equals("Room")) {
-				newRoom.setRoom(true);
+			if (objectType.equals("Room") || objectType.equals("Space")) {
+				Room newRoom = new Room(infoArray[1]);
+				
+				String roomType = infoArray[0];
+				if (roomType.equals("Room")) {
+					newRoom.setRoom(true);
+				}
+				else {
+					newRoom.setRoom(false);
+				}
+				char roomChar = infoArray[2].charAt(0);
+				roomMap.put(roomChar, newRoom);
 			}
-			else {
-				newRoom.setRoom(false);
+			else if (objectType.equals("Player")) {
+				String name = infoArray[1];
+				char color =  infoArray[2].charAt(0);
+				System.out.println(color);
+				int row = Integer.parseInt(infoArray[3]);
+				int column = Integer.parseInt(infoArray[4]);
+				Player newPlayer;
+				
+				if (playerCreated == false) {
+					newPlayer = new HumanPlayer(name, color, row, column);
+					playerCreated = true;
+				}
+				
+				else {
+					newPlayer = new ComputerPlayer(name, color, row, column);
+
+				}
+				
+				playerList[playerIndex] = newPlayer;
+				playerIndex++;
 			}
-			char roomChar = infoArray[2].charAt(0);
-			roomMap.put(roomChar, newRoom);
 			
 		}
 		
