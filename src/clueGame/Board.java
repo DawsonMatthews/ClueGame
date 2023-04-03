@@ -310,9 +310,11 @@ public class Board {
 		}
 	}
 	
-	public boolean checkAccusation()
+	public boolean checkAccusation(Card person, Card room, Card weapon)
 	{
-		return false;
+		Solution accusation = new Solution(person, room, weapon);
+		return accusation.equals(theAnswer);
+		
 	}
 	
 	public Card handleSuggestion() {
@@ -369,5 +371,9 @@ public class Board {
 	
 	public Solution getSolution() {
 		return theAnswer;
+	}
+	
+	public void setTheAnswer(Card person, Card room, Card weapon) {
+		theAnswer = new Solution(person, room, weapon);
 	}
 }

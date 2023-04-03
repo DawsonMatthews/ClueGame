@@ -11,6 +11,10 @@ public class Solution {
 		this.weapon = weapon;
 	}
 	
+	public boolean equals(Solution target) {
+		return person.equals(target.person) && room.equals(target.room) && weapon.equals(target.weapon);
+	}
+	
 	/*
 	 * TEST FUNCTION
 	 */
