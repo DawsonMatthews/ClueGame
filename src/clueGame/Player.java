@@ -3,6 +3,7 @@ package clueGame;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 public abstract class Player {
@@ -53,8 +54,37 @@ public abstract class Player {
 		
 	}
 	
-	public Card disproveSuggestion() {
-		return new Card("Default", CardType.PERSON);
+	private boolean isInHand(Card card) {
+		for (Card c : hand) {
+			if (card.equals(c)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public Card disproveSuggestion(Card person, Card room, Card weapon) {
+		
+		ArrayList<Card> suggestedCardsInHand = new ArrayList<Card>();
+		
+		if (isInHand(person)) {
+			suggestedCardsInHand.add(person);
+		}
+		if (isInHand(room)) {
+			suggestedCardsInHand.add(room);
+		}
+		if (isInHand(weapon)) {
+			suggestedCardsInHand.add(weapon);
+		}
+		
+		int cardCount = suggestedCardsInHand.size();
+		if (cardCount == 0) {
+			return null;
+		}
+		
+		Random random = new Random();
+		int cardIndex = random.nextInt(cardCount);
+		return suggestedCardsInHand.get(cardIndex);
 	}
 	/*
 	 * Getters/ Setters for testing
@@ -78,6 +108,13 @@ public abstract class Player {
 
 	public ArrayList<Card> getHand() {
 		return hand;
+	}
+	
+	public void SetHand(Card card1, Card card2, Card card3) {
+		hand.clear();
+		hand.add(card1);
+		hand.add(card2);
+		hand.add(card3);
 	}
 	
 	

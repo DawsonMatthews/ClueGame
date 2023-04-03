@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import clueGame.Board;
 import clueGame.Card;
 import clueGame.CardType;
+import clueGame.Player;
 import clueGame.Solution;
 
 public class GameSolutionTest {
@@ -42,7 +43,60 @@ public class GameSolutionTest {
 		assertFalse(board.checkAccusation(kathleenCard, wrongRoom, confCard));
 		assertFalse(board.checkAccusation(kathleenCard, statsCard, wrongWeapon));
 
-		
 	}
+	
+	@Test
+	public void testDisproveSuggestion() {
+		
+		Player player = board.getPlayer(0);
+		player.SetHand(kathleenCard, wrongPerson, wrongRoom);
+		
+		int timesCard1Returned = 0;
+		int timesCard2Returned = 0;
+		int timesCard3Returned = 0;
+		
+		for (int i = 0; i < 1000; i++) {
+			if (player.disproveSuggestion(kathleenCard, statsCard, confCard).equals(kathleenCard)) {
+				timesCard1Returned++;
+			}
+			else if (player.disproveSuggestion(kathleenCard, statsCard, confCard).equals(wrongPerson)) {
+				timesCard2Returned++;
+			}
+			else if (player.disproveSuggestion(kathleenCard, statsCard, confCard).equals(wrongRoom)) {
+				timesCard3Returned++;
+			}
+		}
+		
+		assertEquals(1000, timesCard1Returned);
+		assertEquals(0, timesCard2Returned);
+		assertEquals(0, timesCard3Returned);
+		
+		
+		
+		player.SetHand(kathleenCard, statsCard, confCard);
+		
+		timesCard1Returned = 0;
+		timesCard2Returned = 0;
+		timesCard3Returned = 0;
+		
+		for (int i = 0; i < 1000; i++) {
+			if (player.disproveSuggestion(kathleenCard, statsCard, confCard).equals(kathleenCard)) {
+				timesCard1Returned++;
+			}
+			else if (player.disproveSuggestion(kathleenCard, statsCard, confCard).equals(statsCard)) {
+				timesCard2Returned++;
+			}
+			else if (player.disproveSuggestion(kathleenCard, statsCard, confCard).equals(confCard)) {
+				timesCard3Returned++;
+			}
+		}
+		
+		assertTrue(timesCard1Returned >= 100);
+		assertTrue(timesCard2Returned >= 100);
+		assertTrue(timesCard3Returned >= 100);
+		
+		assertEquals(null, player.disproveSuggestion(wrongPerson, wrongRoom, wrongWeapon));
+	}
+	
 
 }
