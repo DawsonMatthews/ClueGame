@@ -318,7 +318,19 @@ public class Board {
 	}
 	
 	public Card handleSuggestion(int player, Card person, Card Room, Card weapon) {
-		return new Card("Default", CardType.PERSON);
+		for (int i = 1; i < 6; i++) {
+			int index = player + i;
+			if (index >= 6) {
+				index = index % 6;
+			}
+			Player currPlayer = playerList[index];
+			Card disproveCard = currPlayer.disproveSuggestion(person, Room, weapon);
+			if ( disproveCard != null) {
+				return disproveCard;
+			}	
+		}
+		
+		return null;
 	}
 	
 	public Set<BoardCell> getTargets() {

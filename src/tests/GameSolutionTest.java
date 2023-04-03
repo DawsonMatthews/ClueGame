@@ -103,15 +103,15 @@ public class GameSolutionTest {
 	public void testHandleSuggestion() {
 		Player player1 = board.getPlayer(0);
 		player1.SetHand(kathleenCard);
-		Player player2 = board.getPlayer(0);
+		Player player2 = board.getPlayer(1);
 		player2.SetHand(statsCard);
-		Player player3 = board.getPlayer(0);
+		Player player3 = board.getPlayer(2);
 		player3.SetHand(confCard);
-		Player player4 = board.getPlayer(0);
+		Player player4 = board.getPlayer(3);
 		player4.SetHand(wrongPerson);
-		Player player5 = board.getPlayer(0);
+		Player player5 = board.getPlayer(4);
 		player5.SetHand(wrongRoom);
-		Player player6 = board.getPlayer(0);
+		Player player6 = board.getPlayer(5);
 		player6.SetHand(wrongWeapon);
 		
 		assertEquals(null, board.handleSuggestion(0, baitCard, baitCard, baitCard));
