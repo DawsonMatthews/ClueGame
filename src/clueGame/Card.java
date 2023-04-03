@@ -8,11 +8,10 @@ public class Card {
 	public Card(String cardName, CardType type) {
 		this.cardName = cardName;
 		this.type = type;
-		// TODO Auto-generated constructor stub
 	}
 	
 	public boolean equals(Card target) {
-		return false;
+		return cardName.equals(target.cardName) && type == target.type;
 	}
 
 	public String getName() {

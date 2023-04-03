@@ -20,6 +20,7 @@ import clueGame.Solution;
 public class GameSetupTests {
 
 	private static Board board;
+	private static Card kathleenCard, statsCard, confCard;
 	
 	@BeforeAll
 	public static void setUp() {
@@ -28,6 +29,10 @@ public class GameSetupTests {
 		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
 		// Initialize will load BOTH config files
 		board.initialize();
+		
+		kathleenCard = new Card("Kathleen", CardType.PERSON);
+		statsCard = new Card("Statistics", CardType.ROOM);
+		confCard = new Card("95% Confidence Interval", CardType.WEAPON);
 	}
 	
 	@Test
@@ -57,12 +62,9 @@ public class GameSetupTests {
 	public void testDeckLoaded() {
 		ArrayList<Card> deck = board.getInitialDecku();
 		assertEquals(21, deck.size());
-		assertEquals(deck.get(14).getName(), "Kathleen");
-		assertEquals(deck.get(14).getType(), CardType.PERSON);
-		assertEquals(deck.get(0).getName(), "Statistics");
-		assertEquals(deck.get(0).getType(), CardType.ROOM);
-		assertEquals(deck.get(15).getName(), "95% Confidence Interval");
-		assertEquals(deck.get(15).getType(), CardType.WEAPON);
+		assertTrue(deck.get(14).equals(kathleenCard));
+		assertTrue(deck.get(0).equals(statsCard));
+		assertTrue(deck.get(15).equals(confCard));
 	}
 	
 	@Test
