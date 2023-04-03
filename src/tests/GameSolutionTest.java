@@ -17,7 +17,7 @@ import clueGame.Solution;
 public class GameSolutionTest {
 	
 	private static Board board;
-	private static Card kathleenCard, statsCard, confCard, wrongPerson, wrongRoom, wrongWeapon;
+	private static Card kathleenCard, statsCard, confCard, wrongPerson, wrongRoom, wrongWeapon, baitCard;
 
 	@BeforeAll
 	public static void setup() {
@@ -32,6 +32,7 @@ public class GameSolutionTest {
 		wrongPerson = new Card("Liam", CardType.PERSON);
 		wrongRoom = new Card("Physics", CardType.ROOM);
 		wrongWeapon = new Card("The Rebugger", CardType.WEAPON);
+		baitCard = new Card ("Bait", CardType.WEAPON);
 
 		board.setTheAnswer(kathleenCard, statsCard, confCard);
 	}
@@ -98,5 +99,26 @@ public class GameSolutionTest {
 		assertEquals(null, player.disproveSuggestion(wrongPerson, wrongRoom, wrongWeapon));
 	}
 	
+	@Test
+	public void testHandleSuggestion() {
+		Player player1 = board.getPlayer(0);
+		player1.SetHand(kathleenCard);
+		Player player2 = board.getPlayer(0);
+		player2.SetHand(statsCard);
+		Player player3 = board.getPlayer(0);
+		player3.SetHand(confCard);
+		Player player4 = board.getPlayer(0);
+		player4.SetHand(wrongPerson);
+		Player player5 = board.getPlayer(0);
+		player5.SetHand(wrongRoom);
+		Player player6 = board.getPlayer(0);
+		player6.SetHand(wrongWeapon);
+		
+		assertEquals(null, board.handleSuggestion(0, baitCard, baitCard, baitCard));
+		assertEquals(null, board.handleSuggestion(0, kathleenCard, kathleenCard, kathleenCard));
+		assertEquals(kathleenCard, board.handleSuggestion(1, kathleenCard, kathleenCard, kathleenCard));
+		assertEquals(kathleenCard, board.handleSuggestion(4, kathleenCard, statsCard, confCard));
+		
+	}
 
 }

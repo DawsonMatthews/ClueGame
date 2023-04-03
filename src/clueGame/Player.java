@@ -117,5 +117,9 @@ public abstract class Player {
 		hand.add(card3);
 	}
 	
+	public void SetHand(Card card) {
+		hand.clear();
+		hand.add(card);
+	}
 	
 }

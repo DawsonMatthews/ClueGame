@@ -317,7 +317,7 @@ public class Board {
 		
 	}
 	
-	public Card handleSuggestion() {
+	public Card handleSuggestion(int player, Card person, Card Room, Card weapon) {
 		return new Card("Default", CardType.PERSON);
 	}
 	
