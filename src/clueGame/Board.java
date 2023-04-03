@@ -310,6 +310,15 @@ public class Board {
 		}
 	}
 	
+	public boolean checkAccusation()
+	{
+		return false;
+	}
+	
+	public Card handleSuggestion() {
+		return new Card("Default", CardType.PERSON);
+	}
+	
 	public Set<BoardCell> getTargets() {
 		return targets;
 	}

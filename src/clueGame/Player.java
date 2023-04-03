@@ -2,6 +2,8 @@ package clueGame;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public abstract class Player {
 
@@ -10,6 +12,7 @@ public abstract class Player {
 	private int row;
 	private int column;
 	private ArrayList<Card> hand = new ArrayList<Card>();
+	private Set<Card> seenCards = new HashSet<Card>();
 	
 	public Player(String name, char color, int row, int column) throws BadConfigFormatException {
 		this.name = name;
@@ -46,6 +49,13 @@ public abstract class Player {
 		hand.add(card);
 	}
 
+	public void updateSeen(Card seenCard) {
+		
+	}
+	
+	public Card disproveSuggestion() {
+		return new Card("Default", CardType.PERSON);
+	}
 	/*
 	 * Getters/ Setters for testing
 	 */
