@@ -64,6 +64,7 @@ public abstract class Player {
 	}
 	
 	public Card disproveSuggestion(Card person, Card room, Card weapon) {
+
 		
 		ArrayList<Card> suggestedCardsInHand = new ArrayList<Card>();
 		
@@ -86,10 +87,10 @@ public abstract class Player {
 		int cardIndex = random.nextInt(cardCount);
 		return suggestedCardsInHand.get(cardIndex);
 	}
+	
 	/*
 	 * Getters/ Setters for testing
 	 */
-	
 	public String getName() {
 		return name;
 	}
@@ -121,5 +122,16 @@ public abstract class Player {
 		hand.clear();
 		hand.add(card);
 	}
+
+	public void setRow(int row) {
+		this.row = row;
+	}
+
+	public void setColumn(int column) {
+		this.column = column;
+	}
 	
+	public void clearSeen() {
+		seenCards.clear();
+	}
 }

@@ -6,7 +6,7 @@ public class ComputerPlayer extends Player {
 		super(name, color, row, column);
 	}
 
-	public Solution createSugestion() {
+	public Solution createSuggestion() {
 		return new Solution(new Card("Default", CardType.PERSON), new Card("Default", CardType.PERSON), new Card("Default", CardType.PERSON));
 	}
 	

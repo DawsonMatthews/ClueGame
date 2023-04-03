@@ -49,7 +49,6 @@ public class Board {
 		findAllTargets(startCell, pathLength);
 	}
 	
-	
 	private void findAllTargets(BoardCell thisCell, int numSteps) {
 		for (BoardCell cell : thisCell.getAdjList()) {
 			if (visited.contains(cell) || (cell.getOccupied() && cell.isRoom() == false)) {
@@ -318,16 +317,22 @@ public class Board {
 	}
 	
 	public Card handleSuggestion(int player, Card person, Card Room, Card weapon) {
+		
+		int index = player + 1;
+		
 		for (int i = 1; i < 6; i++) {
-			int index = player + i;
-			if (index >= 6) {
-				index = index % 6;
-			}
+			
 			Player currPlayer = playerList[index];
 			Card disproveCard = currPlayer.disproveSuggestion(person, Room, weapon);
+			
 			if ( disproveCard != null) {
 				return disproveCard;
 			}	
+			
+			index++;
+			if (index == 6) {
+				index = 0;
+			}
 		}
 		
 		return null;
@@ -388,4 +393,5 @@ public class Board {
 	public void setTheAnswer(Card person, Card room, Card weapon) {
 		theAnswer = new Solution(person, room, weapon);
 	}
+	
 }
