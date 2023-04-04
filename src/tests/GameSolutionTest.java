@@ -38,17 +38,24 @@ public class GameSolutionTest {
 	}
 	
 	@Test
-	public void testCheckAccusation() {
-		assertTrue(board.checkAccusation(kathleenCard, statsCard, confCard));
-		assertFalse(board.checkAccusation(wrongPerson, statsCard, confCard));
-		assertFalse(board.checkAccusation(kathleenCard, wrongRoom, confCard));
-		assertFalse(board.checkAccusation(kathleenCard, statsCard, wrongWeapon));
 
+	public void testCheckAccusation() {
+		// test correct solution
+		assertTrue(board.checkAccusation(kathleenCard, statsCard, confCard));
+		// test solution with wrong person
+		assertFalse(board.checkAccusation(wrongPerson, statsCard, confCard));
+		// test solution with wrong weapon
+		assertFalse(board.checkAccusation(kathleenCard, statsCard, wrongWeapon));
+		// test solution with wrong room
+		assertFalse(board.checkAccusation(kathleenCard, wrongRoom, confCard));
 	}
 	
 	@Test
 	public void testDisproveSuggestion() {
-		
+		/*
+		 * Give the player only the person card of the suggestion,
+		 * make sure it is returned every time
+		 */
 		Player player = board.getPlayer(0);
 		player.SetHand(kathleenCard, wrongPerson, wrongRoom);
 		
@@ -72,8 +79,10 @@ public class GameSolutionTest {
 		assertEquals(0, timesCard2Returned);
 		assertEquals(0, timesCard3Returned);
 		
-		
-		
+		/*
+		 * When the player has more than one matching card,
+		 * the matching cards should be returned randomly
+		 */
 		player.SetHand(kathleenCard, statsCard, confCard);
 		
 		timesCard1Returned = 0;
@@ -96,6 +105,9 @@ public class GameSolutionTest {
 		assertTrue(timesCard2Returned >= 100);
 		assertTrue(timesCard3Returned >= 100);
 		
+		/*
+		 * If player no matching cards, null is returned
+		 */
 		assertEquals(null, player.disproveSuggestion(wrongPerson, wrongRoom, wrongWeapon));
 	}
 	
@@ -114,9 +126,13 @@ public class GameSolutionTest {
 		Player player6 = board.getPlayer(5);
 		player6.SetHand(wrongWeapon);
 		
+		// Suggestion of cards that no one has returns null
 		assertEquals(null, board.handleSuggestion(0, baitCard, baitCard, baitCard));
+		// suggestion that only the suggesting player can disprove returns null
 		assertEquals(null, board.handleSuggestion(0, kathleenCard, kathleenCard, kathleenCard));
+		// suggestion that only human player can disprove is disproved
 		assertEquals(kathleenCard, board.handleSuggestion(1, kathleenCard, kathleenCard, kathleenCard));
+		// A suggestion that two players can disprove is disproven by the correct player
 		assertEquals(kathleenCard, board.handleSuggestion(4, kathleenCard, statsCard, confCard));
 		
 	}

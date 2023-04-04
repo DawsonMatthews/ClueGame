@@ -68,7 +68,10 @@ public class ComputerAITest {
 		
 		assertTrue(playerRoomChar == 'P' && roomName.equals("Probability"));
 		
-		
+		/*
+		 * Give the player all player cards except one, make sure their
+		 * suggestion includes that one missing player card
+		 */
 		player.clearSeen();
 		player.updateSeen(joelCard);
 		player.updateSeen(markCard);
@@ -81,6 +84,10 @@ public class ComputerAITest {
 		
 		assertTrue(kathleenCard.equals(personCard));
 		
+		/*
+		 * Give the player all weapons except one, make sure their
+		 * suggestion includes that one missing weapon
+		 */
 		player.clearSeen();
 		player.updateSeen(confCard);
 		player.updateSeen(rebuggerCard);
@@ -93,6 +100,11 @@ public class ComputerAITest {
 		
 		assertTrue(normalizerCard.equals(weaponCard));
 		
+		/*
+		 * The player is set up to have seen all but two wepons and two
+		 * players, this test checks to make sure that each of the two
+		 * missing people and two missing weapons are selected randomly
+		 */
 		// weapons
 		player.clearSeen();
 		player.updateSeen(confCard);
@@ -141,7 +153,8 @@ public class ComputerAITest {
 	public void testComputerSelectTarget() {
 		
 		/*
-		 * Case one
+		 * tests when there are no rooms in range, that the computer
+		 * randomly selects a target
 		 */
 		ComputerPlayer player = (ComputerPlayer) board.getPlayer(1);
 		player.clearSeen();
@@ -164,7 +177,8 @@ public class ComputerAITest {
 		assertTrue(spot2Selected >= 100);
 		
 		/*
-		 * Case two
+		 * If there is a room in the targets that the player has not seen,
+		 * select that room
 		 */
 		player.setRow(11);
 		player.setColumn(14);
@@ -175,7 +189,8 @@ public class ComputerAITest {
 		assertEquals(board.getCell(14, 18), targetCell);
 		
 		/*
-		 * Case three
+		 * If there is a room in the targets that the player has seen, choose
+		 * any target including the room randomly
 		 */
 		player.setRow(0);
 		player.setColumn(5);
