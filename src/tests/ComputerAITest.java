@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeAll;
 import clueGame.Board;
 import clueGame.BoardCell;
 import clueGame.ComputerPlayer;
+import clueGame.Player;
 import clueGame.Solution;
 import clueGame.Card;
 import clueGame.CardType;
@@ -16,7 +17,7 @@ import clueGame.CardType;
 public class ComputerAITest {
 
 	private static Board board;
-	private static Card confCard, rebuggerCard, inductorCard, eigenCard, binomialCard, normalizerCard, joelCard, markCard, dejunCard, terryCard, liamCard, kathleenCard;
+	private static Card confCard, rebuggerCard, inductorCard, eigenCard, binomialCard, normalizerCard, joelCard, markCard, dejunCard, terryCard, liamCard, kathleenCard, physicsCard;
 
 	@BeforeAll
 	public static void setup() {
@@ -39,6 +40,8 @@ public class ComputerAITest {
 		terryCard = new Card("Terry", CardType.PERSON);
 		liamCard = new Card("Liam", CardType.PERSON);
 		kathleenCard = new Card("Kathleen", CardType.PERSON);
+		
+		physicsCard = new Card("Physics", CardType.ROOM);
 	}
 	
 	@Test
@@ -132,6 +135,65 @@ public class ComputerAITest {
 		assertTrue(binomialPicked >= 100);
 		assertTrue(normalizerPicked >= 100);
 		
+	}
+	
+	@Test
+	public void testComputerSelectTarget() {
+		
+		/*
+		 * Case one
+		 */
+		ComputerPlayer player = (ComputerPlayer) board.getPlayer(1);
+		player.clearSeen();
+
+		player.setRow(23);
+		player.setColumn(23);
+		board.calcTargets(board.getCell(player.getRow(), player.getColumn()), 1);
+		int spot1Selected = 0;
+		int spot2Selected = 0;
+		for (int i = 0; i < 1000; i++) {
+			BoardCell targetCell = player.selectTarget(board.getTargets());
+			if (targetCell == board.getCell(22, 23)) {
+				spot1Selected++;
+			}
+			else if (targetCell == board.getCell(23, 22)) {
+				spot2Selected++;
+			}	
+		}
+		assertTrue(spot1Selected >= 100);
+		assertTrue(spot2Selected >= 100);
+		
+		/*
+		 * Case two
+		 */
+		player.setRow(11);
+		player.setColumn(14);
+		
+		board.calcTargets(board.getCell(player.getRow(), player.getColumn()), 4);
+		
+		BoardCell targetCell = player.selectTarget(board.getTargets());
+		assertEquals(board.getCell(14, 18), targetCell);
+		
+		/*
+		 * Case three
+		 */
+		player.setRow(0);
+		player.setColumn(5);
+		player.updateSeen(physicsCard);
+		board.calcTargets(board.getCell(player.getRow(), player.getColumn()), 1);
+		spot1Selected = 0;
+		spot2Selected = 0;
+		for (int i = 0; i < 1000; i++) {
+			targetCell = player.selectTarget(board.getTargets());
+			if (targetCell == board.getCell(3, 2)) {
+				spot1Selected++;
+			}
+			else if (targetCell == board.getCell(1, 5)) {
+				spot2Selected++;
+			}	
+		}
+		assertTrue(spot1Selected >= 100);
+		assertTrue(spot2Selected >= 100);
 	}
 
 }

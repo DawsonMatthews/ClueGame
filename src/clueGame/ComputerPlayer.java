@@ -76,7 +76,15 @@ public class ComputerPlayer extends Player {
 		return new Solution(playerCard, roomCard, weaponCard);
 	}
 	
-	public BoardCell selectTarget() {
+	public BoardCell selectTarget(Set<BoardCell> targets) {
+		ArrayList<BoardCell> rooms = new ArrayList<BoardCell>();
+		Iterator<BoardCell> value = targets.iterator();
+		while (value.hasNext()) {
+			BoardCell nextCell = value.next();
+			if (nextCell.isRoom()) {
+				rooms.add(nextCell);
+			}
+		}
 		return new BoardCell(0, 0);
 	}
 }
