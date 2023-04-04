@@ -27,6 +27,8 @@ public class Board {
 	private Set<BoardCell> visited;
 	private ArrayList<Card> initialDecku;
 	private ArrayList<Card> decku;// u stands for upper oriented (implemented in upper orientated fashion)
+	private ArrayList<Card> playerCards;
+	private ArrayList<Card> weaponCards;
 	private Player[] playerList = new Player[6];
 	private Solution theAnswer;
 	
@@ -113,9 +115,9 @@ public class Board {
 		FileReader reader = new FileReader("data/" + setupConfigFile);
 		Scanner in = new Scanner(reader);
 		
-		ArrayList<Card> personCards = new ArrayList<Card>();
+		playerCards = new ArrayList<Card>();
+		weaponCards = new ArrayList<Card>();
 		ArrayList<Card> roomCards = new ArrayList<Card>();
-		ArrayList<Card> weaponCards = new ArrayList<Card>();
 		
 		while (in.hasNextLine()) {
 			String roomInfo = in.nextLine();
@@ -174,7 +176,7 @@ public class Board {
 				
 				newCard = new Card(name, CardType.PERSON);
 				initialDecku.add(newCard);
-				personCards.add(newCard);
+				playerCards.add(newCard);
 			}
 			else if (objectType.equals("Weapon")) {
 				String name = infoArray[1];
@@ -192,20 +194,19 @@ public class Board {
 		int roomIndex = random.nextInt(roomCards.size());
 		Card roomCard = roomCards.get(roomIndex);
 		roomCards.remove(roomCard);
+		decku.addAll(roomCards);
 		
-		int personIndex = random.nextInt(personCards.size());
-		Card personCard = personCards.get(personIndex);
-		personCards.remove(personCard);
+		int personIndex = random.nextInt(playerCards.size());
+		Card personCard = playerCards.get(personIndex);
+		decku.addAll(playerCards);
+		decku.remove(personCard);
 		
 		int weaponIndex = random.nextInt(weaponCards.size());
 		Card weaponCard = weaponCards.get(weaponIndex);
-		weaponCards.remove(weaponCard);
+		decku.addAll(weaponCards);
+		decku.remove(weaponCard);
 		
 		theAnswer = new Solution(personCard, roomCard, weaponCard);
-		decku.addAll(personCards);
-		decku.addAll(roomCards);
-		decku.addAll(weaponCards);
-		
 
 		in.close();
 	}
@@ -394,4 +395,15 @@ public class Board {
 		theAnswer = new Solution(person, room, weapon);
 	}
 	
+	public Room ctor(char c) {
+		return roomMap.get(c);
+	}
+	
+	public ArrayList<Card> getPlayerCards() {
+		return (ArrayList<Card>) playerCards.clone();
+	}
+	
+	public ArrayList<Card> getWeaponCards() {
+		return (ArrayList<Card>) weaponCards.clone();
+	}
 }

@@ -51,7 +51,7 @@ public abstract class Player {
 	}
 
 	public void updateSeen(Card seenCard) {
-		
+		seenCards.add(seenCard);
 	}
 	
 	private boolean isInHand(Card card) {
@@ -86,6 +86,10 @@ public abstract class Player {
 		Random random = new Random();
 		int cardIndex = random.nextInt(cardCount);
 		return suggestedCardsInHand.get(cardIndex);
+	}
+	
+	protected Set<Card> getSeenCards() {
+		return seenCards;
 	}
 	
 	/*

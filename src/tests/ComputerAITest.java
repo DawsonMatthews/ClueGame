@@ -3,7 +3,7 @@ package tests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;
 
 import clueGame.Board;
@@ -59,24 +59,11 @@ public class ComputerAITest {
 		char playerRoomChar = playerCell.getInitial();
 		
 		
-		Solution playerSuggestion = player.createSuggestion();
+		Solution playerSuggestion = player.createSuggestion(board.ctor(playerRoomChar), board.getPlayerCards(), board.getWeaponCards());
 		Card roomCard = playerSuggestion.getRoomCard();
 		String roomName = roomCard.getName();
 		
 		assertTrue(playerRoomChar == 'P' && roomName.equals("Probability"));
-		
-		
-		player.clearSeen();
-		player.updateSeen(confCard);
-		player.updateSeen(rebuggerCard);
-		player.updateSeen(inductorCard);
-		player.updateSeen(eigenCard);
-		player.updateSeen(binomialCard);
-		
-		playerSuggestion = player.createSuggestion();
-		Card weaponCard = playerSuggestion.getWeaponCard();
-		
-		assertEquals(normalizerCard, weaponCard);
 		
 		
 		player.clearSeen();
@@ -86,10 +73,22 @@ public class ComputerAITest {
 		player.updateSeen(terryCard);
 		player.updateSeen(liamCard);
 		
-		playerSuggestion = player.createSuggestion();
-		Card personCard = playerSuggestion.getWeaponCard();
+		playerSuggestion = player.createSuggestion(board.ctor(playerRoomChar), board.getPlayerCards(), board.getWeaponCards());
+		Card personCard = playerSuggestion.getPersonCard();
 		
-		assertEquals(kathleenCard, personCard);
+		assertTrue(kathleenCard.equals(personCard));
+		
+		player.clearSeen();
+		player.updateSeen(confCard);
+		player.updateSeen(rebuggerCard);
+		player.updateSeen(inductorCard);
+		player.updateSeen(eigenCard);
+		player.updateSeen(binomialCard);
+		
+		playerSuggestion = player.createSuggestion(board.ctor(playerRoomChar), board.getPlayerCards(), board.getWeaponCards());
+		Card weaponCard = playerSuggestion.getWeaponCard();
+		
+		assertTrue(normalizerCard.equals(weaponCard));
 		
 		// weapons
 		player.clearSeen();
@@ -109,7 +108,7 @@ public class ComputerAITest {
 		int normalizerPicked = 0;
 		
 		for (int i = 0; i < 1000; i++) {
-			playerSuggestion = player.createSuggestion();
+			playerSuggestion = player.createSuggestion(board.ctor(playerRoomChar), board.getPlayerCards(), board.getWeaponCards());
 			personCard = playerSuggestion.getPersonCard();
 			weaponCard = playerSuggestion.getWeaponCard();
 			
@@ -128,7 +127,10 @@ public class ComputerAITest {
 			}
 		}
 		
-		assertTrue(kathleenPicked >= 100 && liamPicked >= 100 && binomialPicked >= 100 && normalizerPicked >= 100);
+		assertTrue(kathleenPicked >= 100);
+		assertTrue(liamPicked >= 100);
+		assertTrue(binomialPicked >= 100);
+		assertTrue(normalizerPicked >= 100);
 		
 	}
 
