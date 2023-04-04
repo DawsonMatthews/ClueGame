@@ -13,7 +13,10 @@ public class BoardCell {
 	private char secretPassage;
 	private DoorDirection doorDirection;
 	private Set<BoardCell> adjacencyList;
+	private String roomCard;
 	
+	
+
 	public BoardCell(int row, int column) {
 		super();
 		
@@ -24,6 +27,7 @@ public class BoardCell {
 		isCenter = false;
 		doorDirection = DoorDirection.NONE;
 		adjacencyList = new HashSet<BoardCell>();
+		roomCard = null;
 	}
 	
 	public void addAdjacency(BoardCell cell) {
@@ -107,4 +111,14 @@ public class BoardCell {
 	public void setInitial(char initial) {
 		this.initial = initial;
 	}
+	
+	public void setRoomCard(String roomCard) {
+		this.roomCard = roomCard;
+	}
+
+	public String getRoomCard() {
+		return roomCard;
+	}
+	
+	
 }

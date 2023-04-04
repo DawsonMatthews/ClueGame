@@ -250,6 +250,7 @@ public class Board {
 				if (roomMap.containsKey(roomChar)){
 					// Sets the new cells room status to the room status of the character. 
 					newCell.setRoom(roomMap.get(roomChar).getRoom());
+					newCell.setRoomCard(roomMap.get(roomChar).getName());
 				}
 				else {
 					throw new BadConfigFormatException();

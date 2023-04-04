@@ -78,6 +78,9 @@ public class ComputerPlayer extends Player {
 	
 	public BoardCell selectTarget(Set<BoardCell> targets) {
 		ArrayList<BoardCell> rooms = new ArrayList<BoardCell>();
+		Random random = new Random();
+		
+		Set<Card> seenCards = getSeenCards();
 		Iterator<BoardCell> value = targets.iterator();
 		while (value.hasNext()) {
 			BoardCell nextCell = value.next();
@@ -85,6 +88,25 @@ public class ComputerPlayer extends Player {
 				rooms.add(nextCell);
 			}
 		}
-		return new BoardCell(0, 0);
+		
+		for (BoardCell room : rooms) {
+			Iterator<Card> seenIterator = seenCards.iterator();
+			boolean roomInSeen = false;
+			while (seenIterator.hasNext()) {
+				Card seenCard = seenIterator.next();
+				if (seenCard.getName().equals(room.getRoomCard())) {
+					roomInSeen = true;
+					break;
+				}
+			}
+			
+			if (roomInSeen == false) {
+				return room;
+			}
+		}
+		
+		BoardCell[] targetsArray = targets.toArray(new BoardCell[targets.size()]);
+		int randInt = random.nextInt(targetsArray.length);
+		return targetsArray[randInt];
 	}
 }
