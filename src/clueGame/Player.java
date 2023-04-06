@@ -15,7 +15,7 @@ public abstract class Player {
 	private ArrayList<Card> hand = new ArrayList<Card>();
 	private Set<Card> seenCards = new HashSet<Card>();
 	
-	public Player(String name, char color, int row, int column) throws BadConfigFormatException {
+	public Player(String name, char color, int row, int column) {
 		this.name = name;
 		
 		Color myColor;
@@ -35,12 +35,10 @@ public abstract class Player {
 		else if (color == 'B') {
 			myColor = Color.BLUE;
 		}
-		else if (color == 'W') {
+		else {
 			myColor = Color.WHITE;
 		}
-		else {
-			throw new BadConfigFormatException("Color not recognized.");
-		}
+		
 		this.color = myColor;
 		this.row = row;
 		this.column = column;

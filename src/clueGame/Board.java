@@ -157,6 +157,11 @@ public class Board {
 			else if (objectType.equals("Player")) {
 				String name = infoArray[1];
 				char color =  infoArray[2].charAt(0);
+				
+				if (color != 'R' && color != 'O' && color != 'G' && color != 'P' && color != 'B' && color != 'W') {
+					throw new BadConfigFormatException("Color not recognized.");
+				}
+				
 				int row = Integer.parseInt(infoArray[3]);
 				int column = Integer.parseInt(infoArray[4]);
 				Player newPlayer;
