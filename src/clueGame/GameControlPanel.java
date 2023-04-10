@@ -5,6 +5,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.*;
 import java.awt.Color;
+import java.awt.Dimension;
 
 public class GameControlPanel extends JPanel {
 	/**
@@ -21,6 +22,7 @@ public class GameControlPanel extends JPanel {
 		// Top panel
 		JPanel topPanel = new JPanel();
 		topPanel.setSize(4, 1);
+		//topPanel.setPreferredSize(new Dimension(750, 60));
 		
 		//Whose turn panel
 		JPanel whoseTurnPanel = new JPanel();
@@ -54,6 +56,7 @@ public class GameControlPanel extends JPanel {
 		// Lower Panel
 		JPanel lowerPanel = new JPanel();
 		lowerPanel.setSize(2, 0);
+		//lowerPanel.setPreferredSize(new Dimension(750, 60));
 		
 		// Guess Panel
 		JPanel guessPanel = new JPanel();
