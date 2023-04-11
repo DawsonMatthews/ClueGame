@@ -70,6 +70,7 @@ public class KnownCardsPanel extends JPanel {
 	private JPanel makePanel(String name, CardType type) {
 		
 		JPanel panel = new JPanel();
+		panel.setPreferredSize(new Dimension(128, 576));
 		panel.setLayout(new GridLayout(2, 1));
 		panel.setSize(1, 2);
 		panel.setBorder(new TitledBorder (new EtchedBorder(), name));
@@ -128,7 +129,7 @@ public class KnownCardsPanel extends JPanel {
 		KnownCardsPanel panel = new KnownCardsPanel();  // create the panel
 		JFrame frame = new JFrame();  // create the frame 
 		frame.setContentPane(panel); // put the panel in the frame
-		frame.setSize(180, 750);  // size the frame
+		frame.setSize(180, 24 * 24);  // size the frame
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
 		frame.setVisible(true); // make it visible
 				

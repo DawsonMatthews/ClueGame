@@ -1,12 +1,15 @@
 package clueGame;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-public abstract class Player {
+import javax.swing.JPanel;
+
+public abstract class Player extends JPanel{
 
 	private String name;
 	private Color color;
@@ -84,6 +87,11 @@ public abstract class Player {
 		Random random = new Random();
 		int cardIndex = random.nextInt(cardCount);
 		return suggestedCardsInHand.get(cardIndex);
+	}
+	
+	public void draw(Graphics g, int cellSize) {
+		g.setColor(color);
+		g.fillOval(cellSize * column, (cellSize * row) + 1, cellSize, cellSize);
 	}
 	
 	protected Set<Card> getSeenCards() {

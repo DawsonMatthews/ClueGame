@@ -4,6 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -14,7 +17,10 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
-public class Board {
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class Board extends JPanel{
 
 	private int columns;
 	private int rows;
@@ -345,6 +351,28 @@ public class Board {
 		return null;
 	}
 	
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);		
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < columns; j++) {
+				griddy[i][j].draw(g, 25);
+			}
+		}
+		
+		for (Room room : roomMap.values()) {
+			if (room.getRoom() == false) {
+				continue;
+			}
+			g.setColor(Color.BLUE);
+			g.setFont(new Font("Serif", Font.BOLD, 18));
+			g.drawString(room.getName(), room.getLabelCell().getColumn() * 25, room.getLabelCell().getRow() * 25);
+		}
+		
+		for (Player player : playerList) {
+			player.draw(g, 25);
+		}
+		
+	}	
 	public Set<BoardCell> getTargets() {
 		return targets;
 	}

@@ -1,5 +1,7 @@
 package clueGame;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,6 +13,8 @@ public class BoardCell {
 	private boolean isCenter;
 	private char initial;
 	private char secretPassage;
+	private int row;
+	private int column;
 	private DoorDirection doorDirection;
 	private Set<BoardCell> adjacencyList;
 	private String roomCard;
@@ -20,6 +24,8 @@ public class BoardCell {
 	public BoardCell(int row, int column) {
 		super();
 		
+		this.row = row;
+		this.column = column;
 		secretPassage = ' ';
 		isRoom = false;
 		isOccupied = false;
@@ -36,6 +42,45 @@ public class BoardCell {
 	
 	public void clearAdjacencyList() {
 		adjacencyList.clear();
+	}
+	
+	public void draw(Graphics graphics, int cellSize) {
+		if (isRoom) {
+			graphics.setColor(Color.GRAY);
+		}
+		else if (initial == 'X') {
+			graphics.setColor(Color.BLACK);
+		}
+				
+		else {
+			graphics.setColor(Color.YELLOW);
+		}
+		graphics.fillRect(cellSize * column, (cellSize * row) + 1, cellSize, cellSize);
+		graphics.setColor(Color.BLACK);
+		graphics.drawRect(cellSize * column, (cellSize * row) + 1, cellSize, cellSize);
+
+		if (doorDirection == DoorDirection.UP) {
+			graphics.setColor(Color.BLUE);
+			graphics.fillRect(cellSize * column, cellSize * row + 1, cellSize, 8);
+		}
+		
+		else if (doorDirection == DoorDirection.LEFT) {
+			graphics.setColor(Color.BLUE);
+			graphics.fillRect(cellSize * column, cellSize * row + 1, 8, cellSize);
+		}
+		
+		else if (doorDirection == DoorDirection.RIGHT) {
+			graphics.setColor(Color.BLUE);
+			graphics.fillRect((cellSize * column) + cellSize - 8, cellSize * row + 1, 8, cellSize);
+		}
+		
+		else if (doorDirection == DoorDirection.DOWN) {
+			graphics.setColor(Color.BLUE);
+			graphics.fillRect(cellSize * column, (cellSize * row) + cellSize - 7, cellSize, 8);
+		}
+		
+		
+		
 	}
 	
 	Set<BoardCell> getAdjList() {
@@ -67,6 +112,14 @@ public class BoardCell {
 		}
 	}
 
+	public int getRow() {
+		return row;
+	}
+	
+	public int getColumn() {
+		return column;
+	}
+	
 	public DoorDirection getDoorDirection() {
 		// TODO Auto-generated method stub
 		return doorDirection;
