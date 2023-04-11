@@ -44,7 +44,7 @@ public class ClueFrame extends JFrame {
 		
 		add(panel);
 		
-		
+		JOptionPane.showMessageDialog(this, "You are Joel The Last of Us 2023.\nCan you find the solution before the others?");
 	}
 	
 	public static void main(String args[]) {

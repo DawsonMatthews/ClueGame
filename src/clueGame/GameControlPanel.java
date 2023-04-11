@@ -6,6 +6,8 @@ import javax.swing.border.TitledBorder;
 import javax.swing.*;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class GameControlPanel extends JPanel {
 	/**
@@ -44,6 +46,11 @@ public class GameControlPanel extends JPanel {
 		
 		//Make accusation button
 		JButton accusationButton = new JButton("Make Accusation");
+		//accusationButton.addActionListener(new ActionListener() {
+			//public void actionPerformed(ActionEvent e) {
+				//accusationButtonPressed();
+			//}
+		//} );
 		topPanel.add(accusationButton);
 		add(topPanel, BorderLayout.NORTH);
 		
