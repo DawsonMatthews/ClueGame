@@ -80,13 +80,34 @@ public class ClueFrame extends JFrame {
 		// Update control panel
 		gameControlPanel.setTurn(currentPlayer, roll);
 		// Might need more soon
-		
+		Set<BoardCell> targets = board.getTargets();
+				
 		if (currentPlayer instanceof HumanPlayer) {
 			// Display targets
-			Set<BoardCell> targets = board.getTargets();
 			for (BoardCell cell : targets) {
 				cell.setTarget(true);
 			}
+			board.setIsFinished(false);
+			
+			repaint();
+		}
+		
+		else if (currentPlayer instanceof ComputerPlayer){
+			//accusation 
+			ComputerPlayer computerPlayer = (ComputerPlayer)currentPlayer;
+			BoardCell cell = computerPlayer.selectTarget(targets);
+			currentPlayer.setPosition(cell.getRow(), cell.getColumn());
+			
+			BoardCell roomCell = board.getCell(computerPlayer.getRow(), computerPlayer.getColumn());
+			char roomChar = roomCell.getInitial();
+			Room room = board.ctor(roomChar);
+			
+			if (room.getRoom()) {
+				Solution suggestion = computerPlayer.createSuggestion(room, board.getPlayerCards(), board.getWeaponCards());
+				board.handleSuggestion(currentPlayerIndex, suggestion.getPersonCard(), suggestion.getRoomCard(), suggestion.getWeaponCard());
+			}
+			
+			
 			repaint();
 		}
 	}

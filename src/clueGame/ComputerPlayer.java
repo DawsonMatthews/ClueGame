@@ -109,4 +109,8 @@ public class ComputerPlayer extends Player {
 		int randInt = random.nextInt(targetsArray.length);
 		return targetsArray[randInt];
 	}
+
+	public Room getRoom() {
+		return null;
+	}
 }

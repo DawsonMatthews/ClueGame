@@ -141,6 +141,11 @@ public abstract class Player extends JPanel{
 		this.column = column;
 	}
 	
+	public void setPosition(int row, int column) {
+		this.row = row;
+		this.column = column;
+	}
+	
 	public void clearSeen() {
 		seenCards.clear();
 	}

@@ -472,4 +472,9 @@ public class Board extends JPanel{
 		return (ArrayList<Card>) weaponCards.clone();
 	}
 
+	public void setIsFinished(boolean isFinished) {
+		this.playerFinished= isFinished;
+		
+	}
+
 }
