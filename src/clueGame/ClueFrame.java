@@ -8,14 +8,20 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.util.Set;
 
 
 public class ClueFrame extends JFrame {
 	
 	private static Board board;
+	private static ClueFrame theInstance = new ClueFrame("Clue Game"); 
+	private GameControlPanel gameControlPanel;
 	
-	public ClueFrame(String name) {
+	private ClueFrame(String name) {
 		super(name);
+	}
+	
+	private void initialize() {
 		setLayout(new BorderLayout());
 		
 		setSize(756, 756);
@@ -37,7 +43,7 @@ public class ClueFrame extends JFrame {
 		panel.add(topPanel, BorderLayout.NORTH);
 		
 		JPanel botPanel = new JPanel();
-		GameControlPanel gameControlPanel = new GameControlPanel();
+		gameControlPanel = new GameControlPanel();
 		botPanel.add(gameControlPanel);
 		botPanel.setPreferredSize(new Dimension(756, 128));
 		panel.add(botPanel, BorderLayout.SOUTH);
@@ -47,8 +53,47 @@ public class ClueFrame extends JFrame {
 		JOptionPane.showMessageDialog(this, "You are Joel The Last of Us 2023.\nCan you find the solution before the others?");
 	}
 	
+	public static ClueFrame getInstance() {
+		return theInstance;
+	}
+	
+	public void nextButtonPressed() {
+		int roll = 0;
+		int currentPlayerIndex = 0;
+		
+		if (board.isPlayerFinished() == false) {
+			JOptionPane.showMessageDialog(this, "Finish yo turn");
+			return;
+		}
+		
+		currentPlayerIndex = board.nextPlayer();
+		Player currentPlayer = board.getPlayer(currentPlayerIndex);
+		
+		roll = board.rollDice();
+		
+		int playerRow = currentPlayer.getRow();
+		int playerColumn = currentPlayer.getColumn();
+		
+		board.calcTargets(board.getCell(playerRow, playerColumn), roll);
+				
+		
+		// Update control panel
+		gameControlPanel.setTurn(currentPlayer, roll);
+		// Might need more soon
+		
+		if (currentPlayer instanceof HumanPlayer) {
+			// Display targets
+			Set<BoardCell> targets = board.getTargets();
+			for (BoardCell cell : targets) {
+				cell.setTarget(true);
+			}
+			repaint();
+		}
+	}
+	
 	public static void main(String args[]) {
-		ClueFrame clueFrame = new ClueFrame("Clue Game");
+		ClueFrame clueFrame = ClueFrame.getInstance();
+		clueFrame.initialize();
 
 		clueFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
 		clueFrame.setVisible(true); // make it visible

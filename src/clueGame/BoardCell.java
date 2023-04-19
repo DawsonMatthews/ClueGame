@@ -11,6 +11,7 @@ public class BoardCell {
 	private boolean isOccupied;
 	private boolean isLabel;
 	private boolean isCenter;
+	private boolean isTarget;
 	private char initial;
 	private char secretPassage;
 	private int row;
@@ -31,6 +32,7 @@ public class BoardCell {
 		isOccupied = false;
 		isLabel = false;
 		isCenter = false;
+		isTarget = false;
 		doorDirection = DoorDirection.NONE;
 		adjacencyList = new HashSet<BoardCell>();
 		roomCard = null;
@@ -45,7 +47,10 @@ public class BoardCell {
 	}
 	
 	public void draw(Graphics graphics, int cellSize) {
-		if (isRoom) {
+		if (isTarget) {
+			graphics.setColor(Color.GREEN);
+		}
+		else if (isRoom) {
 			graphics.setColor(Color.GRAY);
 		}
 		else if (initial == 'X') {
@@ -171,6 +176,10 @@ public class BoardCell {
 
 	public String getRoomCard() {
 		return roomCard;
+	}
+
+	public void setTarget(boolean isTarget) {
+		this.isTarget = isTarget;
 	}
 	
 	

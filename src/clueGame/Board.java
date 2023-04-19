@@ -36,9 +36,16 @@ public class Board extends JPanel{
 	private ArrayList<Card> playerCards;
 	private ArrayList<Card> weaponCards;
 	private Player[] playerList = new Player[6];
+	private int currentPlayerIndex = 0;
 	private Solution theAnswer;
 	
+	private boolean playerFinished = true;
+	private int roll;
 		
+	public boolean isPlayerFinished() {
+		return playerFinished;
+	}
+
 	private Board() {
 		super();
 	}
@@ -52,6 +59,14 @@ public class Board extends JPanel{
 	public void calcTargets(BoardCell startCell, int pathLength) {
 		AdjacencyListCalculator.SetAdjacencyList(rows, columns, griddy, roomMap);
 		visited = new HashSet<BoardCell>();
+		
+		if (targets != null) {
+			for (BoardCell cell : targets) {
+				cell.setTarget(false);
+			}
+		}
+		
+		
 		targets = new HashSet<BoardCell>();
 		visited.add(startCell);
 		findAllTargets(startCell, pathLength);
@@ -373,6 +388,22 @@ public class Board extends JPanel{
 		}
 		
 	}	
+	
+	public int nextPlayer() {
+		currentPlayerIndex++;
+		if (currentPlayerIndex >= 6) {
+			currentPlayerIndex = 0;
+		}
+		
+		return currentPlayerIndex;
+	}
+	
+	public int rollDice() {
+		Random rand = new Random();
+		return rand.nextInt(6) + 1;
+	}
+	
+	
 	public Set<BoardCell> getTargets() {
 		return targets;
 	}
@@ -440,4 +471,5 @@ public class Board extends JPanel{
 	public ArrayList<Card> getWeaponCards() {
 		return (ArrayList<Card>) weaponCards.clone();
 	}
+
 }

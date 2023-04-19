@@ -18,8 +18,11 @@ public class GameControlPanel extends JPanel {
 	private JTextField rolledText;
 	private JTextField guessText;
 	private JTextField resultText;
+	private static Board board;
 	
 	public GameControlPanel()  {
+		
+		board = Board.getInstance();
 		
 		// Top panel
 		JPanel topPanel = new JPanel();
@@ -46,16 +49,23 @@ public class GameControlPanel extends JPanel {
 		
 		//Make accusation button
 		JButton accusationButton = new JButton("Make Accusation");
-		//accusationButton.addActionListener(new ActionListener() {
-			//public void actionPerformed(ActionEvent e) {
-				//accusationButtonPressed();
-			//}
-		//} );
+		accusationButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				accusationButtonPressed();
+			}
+
+			private void accusationButtonPressed() {
+				System.out.println("EVIL is afoot!");
+				
+			}
+		} );
 		topPanel.add(accusationButton);
 		add(topPanel, BorderLayout.NORTH);
 		
 		// Next button
 		JButton nextButton = new JButton("NEXT!");
+		nextButton.addActionListener(new NextListener());
+		
 		topPanel.add(nextButton);
 		
 		add(topPanel);
