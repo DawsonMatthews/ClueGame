@@ -366,6 +366,13 @@ public class Board extends JPanel implements MouseListener{
 		return null;
 	}
 	
+	/*
+	 * Goes through each cell in the grid and has the cell draw itself based on position/ type. Then goes
+	 * through each room and draws its label on label cell. Finally, goes through player and calls for them to 
+	 * draw themself.
+	 * 
+	 */
+	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);		
 		for (int i = 0; i < rows; i++) {
