@@ -1,5 +1,30 @@
-I, Dawson Matthews, certify that I participated equitably in the creation of assignment C23A Clue Board GUI (Clue Pair) dated 04/10/2023.
-I, Connor Bendle, certify that I participated equitably in the creation of this assignment C23A Clue Board GUI GUI (Clue Pair), dated 04/10/2023.
+I, Dawson Matthews, certify that I participated equitably in the creation of assignment C24A Clue - Moving the Players (Clue Pair)dated 04/19/2023.
+I, Connor Bendle, certify that I participated equitably in the creation of this assignment C24A Clue - Moving the Players (Clue Pair), dated 04/19/2023.
+
+
+commit 4f26d41189d49118f08aedc843787b18579b12f7
+Author: Dawson Matthews <=>
+Date:   Wed Apr 19 18:42:21 2023 -0600
+
+    got players moving correctly
+
+commit 8705a08e01e0585607de3a3c5c088cacdc7112bf
+Author: Dawson Matthews <=>
+Date:   Wed Apr 19 17:03:09 2023 -0600
+
+    finished next button functionality
+
+commit 40225c5ed9896fca0aa277875e1c288b27097fe1
+Author: Dawson Matthews <=>
+Date:   Wed Apr 19 16:28:15 2023 -0600
+
+    Semi working state, next button cycles through players and lights up targets on players turn.
+
+commit 949fe020b08977e0bfb1dd779608860f45f51352
+Author: Dawson Matthews (STUDENT) <dawsonmatthews@mines.edu>
+Date:   Tue Apr 11 13:19:14 2023 -0600
+
+    tried adding button listener
 
 commit 327a5dbfc1cabdd1eb99e3bdcf515a5c1097fe0e
 Author: Dawson Matthews <=>

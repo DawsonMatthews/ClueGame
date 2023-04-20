@@ -1,13 +1,8 @@
 package clueGame;
 
 import java.awt.BorderLayout;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.TitledBorder;
 import javax.swing.*;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.GridLayout;
 import java.util.Set;
 
 
