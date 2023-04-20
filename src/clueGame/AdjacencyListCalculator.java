@@ -4,6 +4,10 @@ import java.util.Map;
 
 public class AdjacencyListCalculator {
 
+	private AdjacencyListCalculator() {
+		super();
+	}
+	
 	private static final String WALKWAY_STRING = "Walkway";
 	
 	public static void SetAdjacencyList(int rows, int columns, BoardCell[][] griddy, Map<Character, Room> roomMap) {
@@ -103,6 +107,5 @@ public class AdjacencyListCalculator {
 			}
 		}
 	}
-
 
 }
