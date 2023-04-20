@@ -496,40 +496,37 @@ public class Board extends JPanel implements MouseListener{
 			return;
 		}
 		
-		BoardCell clickedCell;
-		boolean isClickedCellTarget = false;
+		BoardCell clickedCell = null;
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < columns; j++) {
 				if (griddy[i][j].containsClick(e.getX(), e.getY())) {
-					clickedCell = griddy[i][j];
-					
-					if (clickedCell.getIsTarget()) {
-						isClickedCellTarget = true;
-						
-						playerFinished = true;
-						
-						player.setPosition(i, j);
-						
-						if (clickedCell.isRoom()) {
-							// Make suggestion
-							
-							// Update seen
-						}
-						
-						for (BoardCell cell : targets) {
-							cell.setTarget(false);
-						}
-						
-						repaint();
-
-					}
-					
+					clickedCell = griddy[i][j];	
 					break;
 				}
 			}
 		}
 		
-		if (isClickedCellTarget == false) {
+		if (clickedCell == null) {
+			return;
+		}
+		if (clickedCell.getIsTarget()) {
+			playerFinished = true;
+			player.setPosition(clickedCell.getRow(), clickedCell.getColumn());
+			
+			if (clickedCell.isRoom()) {
+				// Make suggestion
+				
+				// Update seen
+			}
+			
+			for (BoardCell cell : targets) {
+				cell.setTarget(false);
+			}
+			
+			repaint();
+		}
+		
+		else {
 			JOptionPane.showMessageDialog(this, "Erm, actually, you can't pick this spot...");
 		}
 		
