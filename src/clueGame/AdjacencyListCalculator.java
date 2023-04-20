@@ -2,7 +2,7 @@ package clueGame;
 
 import java.util.Map;
 
-public class AdjacencyListCalculator implements SetWalkwayAdjacency {
+public class AdjacencyListCalculator {
 
 	private static final String WALKWAY_STRING = "Walkway";
 	
