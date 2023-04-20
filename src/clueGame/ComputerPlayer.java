@@ -18,9 +18,7 @@ public class ComputerPlayer extends Player {
 		ArrayList<Card> allWeapons = (ArrayList<Card>) weapons.clone();
 		
 		Set<Card> seenCards = getSeenCards();
-		
-		System.out.println(seenCards.size());
-		
+				
 		for (int i = 0; i < allPlayers.size(); i++) {
 			Card pc = allPlayers.get(i);
 			Iterator<Card> value = seenCards.iterator();

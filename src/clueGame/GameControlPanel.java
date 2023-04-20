@@ -55,7 +55,6 @@ public class GameControlPanel extends JPanel {
 
 			private void accusationButtonPressed() {
 				System.out.println("EVIL is afoot!");
-				
 			}
 		} );
 		topPanel.add(accusationButton);
