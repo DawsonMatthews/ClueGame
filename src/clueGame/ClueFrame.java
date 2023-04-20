@@ -54,15 +54,22 @@ public class ClueFrame extends JFrame {
 		return theInstance;
 	}
 	
+	/*
+	 * 
+	 * Controls the overall logic for when the next button is pressed.
+	 */
+	
 	public void nextButtonPressed() {
 		int roll = 0;
 		int currentPlayerIndex = 0;
-		
+		//prompts player to finish turn when applicable
 		if (board.isPlayerFinished() == false) {
 			JOptionPane.showMessageDialog(this, "Finish yo turn");
 			return;
 		}
 		
+		
+		//rolls die and calculates targets
 		currentPlayerIndex = board.nextPlayer();
 		Player currentPlayer = board.getPlayer(currentPlayerIndex);
 		
@@ -78,7 +85,7 @@ public class ClueFrame extends JFrame {
 		gameControlPanel.setTurn(currentPlayer, roll);
 		// Might need more soon
 		Set<BoardCell> targets = board.getTargets();
-				
+			
 		if (currentPlayer instanceof HumanPlayer) {
 			// Display targets
 			for (BoardCell cell : targets) {
@@ -89,6 +96,7 @@ public class ClueFrame extends JFrame {
 			repaint();
 		}
 		
+		//moves player and creates suggestion for computer player
 		else if (currentPlayer instanceof ComputerPlayer){
 			//accusation 
 			ComputerPlayer computerPlayer = (ComputerPlayer)currentPlayer;
