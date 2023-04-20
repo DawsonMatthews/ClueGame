@@ -7,6 +7,8 @@ import static org.junit.Assert.assertTrue;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -18,9 +20,10 @@ import java.util.Scanner;
 import java.util.Set;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class Board extends JPanel{
+public class Board extends JPanel implements MouseListener{
 
 	private int columns;
 	private int rows;
@@ -36,7 +39,7 @@ public class Board extends JPanel{
 	private ArrayList<Card> playerCards;
 	private ArrayList<Card> weaponCards;
 	private Player[] playerList = new Player[6];
-	private int currentPlayerIndex = 0;
+	private int currentPlayerIndex = 5;
 	private Solution theAnswer;
 	
 	private boolean playerFinished = true;
@@ -121,6 +124,8 @@ public class Board extends JPanel{
 		deal();
 			
 		AdjacencyListCalculator.SetAdjacencyList(rows, columns, griddy, roomMap);
+	
+		addMouseListener(this);
 	}
 	
 	/*
@@ -350,17 +355,17 @@ public class Board extends JPanel{
 		
 		for (int i = 1; i < 6; i++) {
 			
+			if (index >= 6) {
+				index = 0;
+			}
+			
 			Player currPlayer = playerList[index];
 			Card disproveCard = currPlayer.disproveSuggestion(person, Room, weapon);
 			
 			if ( disproveCard != null) {
 				return disproveCard;
 			}	
-			
 			index++;
-			if (index == 6) {
-				index = 0;
-			}
 		}
 		
 		return null;
@@ -474,6 +479,82 @@ public class Board extends JPanel{
 
 	public void setIsFinished(boolean isFinished) {
 		this.playerFinished= isFinished;
+		
+	}
+
+	// Now back to real methods
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		
+		Player player = playerList[currentPlayerIndex];
+		if (player instanceof ComputerPlayer) {
+			return;
+		}
+		if (playerFinished == true) {
+			return;
+		}
+		
+		BoardCell clickedCell;
+		boolean isClickedCellTarget = false;
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < columns; j++) {
+				if (griddy[i][j].containsClick(e.getX(), e.getY())) {
+					clickedCell = griddy[i][j];
+					
+					if (clickedCell.getIsTarget()) {
+						isClickedCellTarget = true;
+						
+						playerFinished = true;
+						
+						player.setPosition(i, j);
+						
+						if (clickedCell.isRoom()) {
+							// Make suggestion
+							
+							// Update seen
+						}
+						
+						for (BoardCell cell : targets) {
+							cell.setTarget(false);
+						}
+						
+						repaint();
+
+					}
+					
+					break;
+				}
+			}
+		}
+		
+		if (isClickedCellTarget == false) {
+			JOptionPane.showMessageDialog(this, "Erm, actually, you can't pick this spot...");
+		}
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 

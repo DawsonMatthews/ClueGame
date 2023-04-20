@@ -2,6 +2,8 @@ package clueGame;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -88,15 +90,26 @@ public class BoardCell {
 		
 	}
 	
-	Set<BoardCell> getAdjList() {
+	public boolean containsClick(int mouseX, int mouseY) {
+		
+		Rectangle rect = new Rectangle(column * 25, row * 25, 25, 25);
+		
+		if (rect.contains(new Point(mouseX, mouseY))) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public Set<BoardCell> getAdjList() {
 		return adjacencyList;
 	}
 
-	void setRoom(boolean partOfRoom) {
+	public void setRoom(boolean partOfRoom) {
 		isRoom = partOfRoom;
 	}
 	
-	boolean isRoom() {
+	public boolean isRoom() {
 		return isRoom;
 	}
 	
@@ -182,5 +195,7 @@ public class BoardCell {
 		this.isTarget = isTarget;
 	}
 	
-	
+	public boolean getIsTarget() {
+		return isTarget;
+	}
 }
