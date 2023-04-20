@@ -325,7 +325,7 @@ public class Board extends JPanel implements MouseListener{
 	public void deal() {
 		Random random = new Random();
 		int playerIndex = 0;
-		while (decku.size() > 0) {
+		while (decku.isEmpty() == false) {
 			int randIndex = random.nextInt(decku.size());
 			Card randCard = decku.get(randIndex);
 			playerList[playerIndex].updateHand(randCard);
