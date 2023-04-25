@@ -522,7 +522,7 @@ public class Board extends JPanel implements MouseListener{
 			
 			if (clickedCell.isRoom()) {
 				// Make suggestion
-				
+				player.createSuggestion(ctor(clickedCell.getInitial()), playerCards, weaponCards);
 				// Update seen
 			}
 			

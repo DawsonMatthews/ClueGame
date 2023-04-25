@@ -5,3 +5,5 @@
 /GameControlPanel$2.class
 /GameControlPanel$1NextListener.class
 /NextListener.class
+/HumanPlayer$1SubmitListener.class
+/HumanPlayer$1CancelListener.class

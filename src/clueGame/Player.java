@@ -149,4 +149,6 @@ public abstract class Player extends JPanel{
 	public void clearSeen() {
 		seenCards.clear();
 	}
+
+	protected abstract Solution createSuggestion(Room room, ArrayList<Card> players, ArrayList<Card> weapons);
 }

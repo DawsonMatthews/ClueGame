@@ -10,7 +10,7 @@ public class ComputerPlayer extends Player {
 	public ComputerPlayer(String name, char color, int row, int column) {
 		super(name, color, row, column);
 	}
-
+	@Override
 	public Solution createSuggestion(Room room, ArrayList<Card> players, ArrayList<Card> weapons) {
 		Card playerCard, roomCard, weaponCard;
 		Random random = new Random();

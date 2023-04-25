@@ -23,13 +23,14 @@ public class KnownCardsPanel extends JPanel {
 	private Map<Card, Color> cardColorMap = new HashMap<Card, Color>();
 	private Set<Card> seenCards = new HashSet<Card>();
 	private ArrayList<Card> hand = new ArrayList<Card>();
-	private static Card confCard, rebuggerCard, inductorCard, eigenCard, binomialCard, normalizerCard, joelCard, markCard, dejunCard, terryCard, liamCard, kathleenCard, physicsCard;
+	//private static Card confCard, rebuggerCard, inductorCard, eigenCard, binomialCard, normalizerCard, joelCard, markCard, dejunCard, terryCard, liamCard, kathleenCard, physicsCard;
 
 	
 	public KnownCardsPanel() {
 		setLayout(new GridLayout(3, 0));
 		setBorder(new TitledBorder (new EtchedBorder(), "Known Cards"));
 		
+		/*
 		confCard = new Card("95% Confidence Interval", CardType.WEAPON);
 		rebuggerCard = new Card("The Rebugger", CardType.WEAPON);
 		inductorCard = new Card("The Inductor", CardType.WEAPON);
@@ -56,7 +57,10 @@ public class KnownCardsPanel extends JPanel {
 		seenCards.add(normalizerCard);
 		seenCards.add(physicsCard);
 		seenCards.add(eigenCard);
-
+		 */
+		
+		Board board = Board.getInstance();
+		hand = board.getPlayer(0).getHand();
 
 		peoplePanel = makePanel("People", CardType.PERSON);
 		roomPanel = makePanel("Rooms", CardType.ROOM);
@@ -134,8 +138,8 @@ public class KnownCardsPanel extends JPanel {
 		frame.setVisible(true); // make it visible
 				
 		// test filling in the data
-		panel.updateSeen(kathleenCard, Color.GREEN);
-		panel.updateSeen(inductorCard, Color.RED);
+		//panel.updateSeen(kathleenCard, Color.GREEN);
+		//panel.updateSeen(inductorCard, Color.RED);
 	}
 	
 }

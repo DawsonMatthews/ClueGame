@@ -1,0 +1,150 @@
+I, Dawson Matthews, certify that I participated equitably in the creation of assignment C25A-2 Refactor II (Clue Pair) dated 04/19/2023.
+I, Connor Bendle, certify that I participated equitably in the creation of this assignment C25A-2 Refactor II (Clue Pair), dated 04/19/2023.
+
+BEFORE:
+	public void mousePressed(MouseEvent e) {
+		
+		Player player = playerList[currentPlayerIndex];
+		if (player instanceof ComputerPlayer) {
+			return;
+		}
+		if (playerFinished == true) {
+			return;
+		}
+		
+		BoardCell clickedCell;
+		boolean isClickedCellTarget = false;
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < columns; j++) {
+				if (griddy[i][j].containsClick(e.getX(), e.getY())) {
+					clickedCell = griddy[i][j];
+					
+					if (clickedCell.getIsTarget()) {
+						isClickedCellTarget = true;
+						
+						playerFinished = true;
+						
+						player.setPosition(i, j);
+						
+						if (clickedCell.isRoom()) {
+							// Make suggestion
+							
+							// Update seen
+						}
+						
+						for (BoardCell cell : targets) {
+							cell.setTarget(false);
+						}
+						
+						repaint();
+
+					}
+					
+					break;
+				}
+			}
+		}
+		
+		if (isClickedCellTarget == false) {
+			JOptionPane.showMessageDialog(this, "Erm, actually, you can't pick this spot...");
+		}
+		
+	}
+}
+
+AFTER:
+	public void mousePressed(MouseEvent e) {
+		
+		Player player = playerList[currentPlayerIndex];
+		if (player instanceof ComputerPlayer) {
+			return;
+		}
+		if (playerFinished == true) {
+			return;
+		}
+		
+		BoardCell clickedCell = null;
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < columns; j++) {
+				if (griddy[i][j].containsClick(e.getX(), e.getY())) {
+					clickedCell = griddy[i][j];	
+					break;
+				}
+			}
+		}
+		
+		if (clickedCell == null) {
+			return;
+		}
+		if (clickedCell.getIsTarget()) {
+			playerFinished = true;
+			player.setPosition(clickedCell.getRow(), clickedCell.getColumn());
+			
+			if (clickedCell.isRoom()) {
+				// Make suggestion
+				
+				// Update seen
+			}
+			
+			for (BoardCell cell : targets) {
+				cell.setTarget(false);
+			}
+			
+			repaint();
+		}
+		
+		else {
+			JOptionPane.showMessageDialog(this, "Erm, actually, you can't pick this spot...");
+		}
+		
+	}
+
+GIT LOG:
+commit ff394ee8cc782a8cdd0ca40133ebca81be89ac4f (HEAD -> main)
+Author: Dawson Matthews <=>
+Date:   Wed Apr 19 23:22:42 2023 -0600
+
+    improved readability for deal function
+
+commit 0fb42bbfd2c652deb75fb7bf3fe41d43b5d8643e
+Author: Dawson Matthews <=>
+Date:   Wed Apr 19 23:20:51 2023 -0600
+
+    added inline and header comments for nextButtonPressed function in ClueFrame
+
+commit ae7b47ac3c53b9450614c943ed7582ed4194e3d9
+Author: Dawson Matthews <=>
+Date:   Wed Apr 19 23:17:00 2023 -0600
+
+    added comment for paintComponent function in Board
+
+commit a213b055fe43dbe72eca4136ba25babb4514329b
+Author: Dawson Matthews <=>
+Date:   Wed Apr 19 23:14:45 2023 -0600
+
+    reorgainzed and cleaned up mouseClicked function to increase readability
+
+commit 8ae23f3a9e2efafb60c2f7306df959555cb3349a
+Author: Dawson Matthews <=>
+Date:   Wed Apr 19 23:01:03 2023 -0600
+
+    Removed unneeded print line statements
+
+commit 3c07ddc2afd414c05570ad9564c86e995a0451b1
+Author: Dawson Matthews <=>
+Date:   Wed Apr 19 22:58:51 2023 -0600
+
+    Added constructor to AdjacencyListCalculator to override implicit constructor
+
+commit a741e53de6162e2cd7996d7153cd39d20414487d
+Author: Dawson Matthews <=>
+Date:   Wed Apr 19 22:55:08 2023 -0600
+
+    Removed unused SetWalkwayAdjacency class and all references to it
+
+commit 6e7f92012d5890bec8ee98dde692d1539391c5e5
+Author: Dawson Matthews <=>
+Date:   Wed Apr 19 22:54:20 2023 -0600
+
+    Removed unused imports from all classes
+

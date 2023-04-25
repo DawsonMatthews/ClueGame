@@ -3,6 +3,8 @@ package clueGame;
 import java.awt.BorderLayout;
 import javax.swing.*;
 import java.awt.Dimension;
+import java.awt.Frame;
+import java.util.ArrayList;
 import java.util.Set;
 
 
@@ -33,6 +35,7 @@ public class ClueFrame extends JFrame {
 		topPanel.add(board, BorderLayout.WEST);
 		
 		KnownCardsPanel knownCardsPanel = new KnownCardsPanel();
+		
 		topPanel.add(knownCardsPanel, BorderLayout.EAST);
 		
 		panel.add(topPanel, BorderLayout.NORTH);
@@ -121,7 +124,9 @@ public class ClueFrame extends JFrame {
 		ClueFrame clueFrame = ClueFrame.getInstance();
 		clueFrame.initialize();
 
+		clueFrame.setLocationRelativeTo(null);
 		clueFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
 		clueFrame.setVisible(true); // make it visible
+	
 	}
 }
